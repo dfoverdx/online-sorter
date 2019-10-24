@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Context from '../context';
 import AlgorithmSelect from './algorithm-select';
 import DataEntry from './data-entry';
@@ -12,8 +12,10 @@ export default class Stages extends PureComponent<Props> {
   render() {
     return <HashRouter>
       <Switch>
+        <Route exact path="/"><Redirect to="/data-entry" /></Route>
+        <Route path="/data-entry"><DataEntry /></Route>
         <Route path="/algorithm"><AlgorithmSelect /></Route>
-        <Route path="/"><DataEntry /></Route>
+        <Route path="*"><Redirect to="/" /></Route>
       </Switch>
     </HashRouter>;
   }

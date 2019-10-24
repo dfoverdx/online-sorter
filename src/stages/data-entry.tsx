@@ -44,34 +44,41 @@ export default class DataEntry extends PureComponent<{}, State> {
           </Button>
         </Link>
       </div>
-      <ReactifyMarkdown>{`
-        Examples
-        --------
+      <div className="pb-2">
+        <ReactifyMarkdown>{`
+          Examples
+          --------
 
-        **Single entries**
-        \`\`\`
-        Anna
-        Bob
-        \`\`\`
+          **Single entries**
+          \`\`\`
+          Anna
+          Bob
+          \`\`\`
 
-        **Required single entries**
-        \`\`\`
-        * Candice
-        * Derek
-        \`\`\`
+          **Required single entries**
+          \`\`\`
+          * Candice
+          * Derek
+          \`\`\`
 
-        **Weighted entries**
-        \`\`\`
-        The Smiths | 4
-        Edna + 1 | 2
-        \`\`\`
+          **Weighted entries**
+          \`\`\`
+          The Smiths | 4
+          Edna + 1 | 2
+          \`\`\`
 
-        **Required weighted entries**
-        \`\`\`
-        * The Jones | 3
-        * Fred and Gwen + 1 | 3
-        \`\`\`
-      `}</ReactifyMarkdown>
+          **Required weighted entries**
+          \`\`\`
+          * The Jones | 3
+          * Fred and Gwen + 1 | 3
+          \`\`\`
+
+          Tips
+          ----
+
+          * If you have already sorted your list and add new items, add them to the end, and use Insertion Sort.
+        `}</ReactifyMarkdown>
+      </div>
     </>;
   }
 
