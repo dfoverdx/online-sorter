@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.scss';
-import Context, { Algorithm, AppContext, Stage, StorageKeys } from './context';
+import Context, { Algorithm, AppContext, StorageKeys } from './context';
 import { Item } from './item';
 import Stages from './stages';
 
@@ -14,8 +14,6 @@ class App extends React.PureComponent<{}, State> {
     this.state = {
       items: this.getItemsFromStorage(),
       updateItems: this.updateItems.bind(this),
-      stage: Stage.dataEntry,
-      setStage: this.setStage.bind(this),
       algorithm: null,
       setAlgorithm: this.setAlgorithm.bind(this),
     };
@@ -33,10 +31,6 @@ class App extends React.PureComponent<{}, State> {
   private updateItems(items: Item[]) {
     localStorage.setItem(StorageKeys.items, JSON.stringify(items));
     this.setState({ items });
-  }
-
-  private setStage(stage: AppContext['stage']) {
-    this.setState({ stage });
   }
 
   private setAlgorithm(algorithm: Algorithm | null) {

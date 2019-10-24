@@ -1,8 +1,9 @@
 import React, { ChangeEvent, PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import ReactifyMarkdown from 'reactify-markdown';
 import { Button } from 'reactstrap';
 import ItemInput from '../components/item-input';
-import Context, { Stage } from '../context';
+import Context from '../context';
 
 interface State {
   hasText: boolean;
@@ -18,10 +19,6 @@ export default class DataEntry extends PureComponent<{}, State> {
 
   onInputChange(e: ChangeEvent<HTMLTextAreaElement>) {
     this.setState({ hasText: !!e.target.value.trim().length });
-  }
-
-  onNextClick() {
-    this.context.setStage(Stage.algorithmSelect);
   }
 
   render() {
@@ -40,10 +37,12 @@ export default class DataEntry extends PureComponent<{}, State> {
       `}</ReactifyMarkdown>
       <ItemInput onChange={this.onInputChange.bind(this)} />
       <div className="d-flex flex-row justify-content-end">
-        <Button color="primary" onClick={this.onNextClick.bind(this)} disabled={!this.state.hasText}
-          className="ml-auto">
-          Sort Entries
-        </Button>
+        <Link to="/algorithm">
+          <Button color="primary" disabled={!this.state.hasText}
+            className="ml-auto">
+            Sort Entries
+          </Button>
+        </Link>
       </div>
       <ReactifyMarkdown>{`
         Examples
