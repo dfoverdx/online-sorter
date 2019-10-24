@@ -1,26 +1,57 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import './App.scss';
+import Context, { Algorithm, AppContext, Stage, StorageKeys } from './context';
+import { Item } from './item';
+import Stages from './stages';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface State extends AppContext {}
+
+class App extends React.PureComponent<{}, State> {
+  constructor(props: {}) {
+    super(props);
+
+    this.state = {
+      items: this.getItemsFromStorage(),
+      updateItems: this.updateItems.bind(this),
+      stage: Stage.dataEntry,
+      setStage: this.setStage.bind(this),
+      algorithm: null,
+      setAlgorithm: this.setAlgorithm.bind(this),
+    };
+  }
+
+  private getItemsFromStorage(): Item[] {
+    const data = localStorage.getItem(StorageKeys.items);
+    if (!data) {
+      return [];
+    }
+
+    return JSON.parse(data);
+  }
+
+  private updateItems(items: Item[]) {
+    localStorage.setItem(StorageKeys.items, JSON.stringify(items));
+    this.setState({ items });
+  }
+
+  private setStage(stage: AppContext['stage']) {
+    this.setState({ stage });
+  }
+
+  private setAlgorithm(algorithm: Algorithm | null) {
+    this.setState({ algorithm });
+  }
+
+  render() {
+    return (
+      <div className="App container">
+        <Context.Provider value={this.state}>
+          <Stages />
+        </Context.Provider>
+      </div>
+    );
+  }
 }
 
 export default App;

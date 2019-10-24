@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "24.0.19",
-    "@types/node": "12.11.2",
-    "@types/react": "16.9.9",
-    "@types/react-dom": "16.9.2",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "markdown-it": "^10.0.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0",
-    "typescript": "3.6.4"
+    "reactify-markdown": "^0.2.4",
+    "reactstrap": "^8.1.1",
+    "typescript": "^3.6.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -32,5 +33,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^4.3.1",
+    "@types/jest": "24.0.19",
+    "@types/markdown-it": "0.0.9",
+    "@types/node": "12.11.2",
+    "@types/react": "^16.9.9",
+    "@types/react-dom": "16.9.2",
+    "@types/reactstrap": "^8.0.6",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0"
   }
 }

@@ -1,9 +1,13 @@
-.App {
-  text-align: center;
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+body {
+  background-color: $secondary;
 }
 
-.App-logo {
-  height: 40vmin;
+.App {
+  height: 100vh;
+  background-color: white;
 }
 
 .App-header {
