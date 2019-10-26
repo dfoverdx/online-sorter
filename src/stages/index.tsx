@@ -1,24 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { FC } from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
-import Context from '../context';
 import AlgorithmSelect from './algorithm-select';
 import DataEntry from './data-entry';
 
-interface Props { }
+const Stages: FC = () =>
+  <HashRouter>
+    <Switch>
+      <Route exact path="/"><Redirect to="/data-entry" /></Route>
+      <Route path="/data-entry"><DataEntry /></Route>
+      <Route path="/algorithm"><AlgorithmSelect /></Route>
+      <Route path="*"><Redirect to="/" /></Route>
+    </Switch>
+  </HashRouter>;
 
-export default class Stages extends PureComponent<Props> {
-  context!: CT;
-
-  render() {
-    return <HashRouter>
-      <Switch>
-        <Route exact path="/"><Redirect to="/data-entry" /></Route>
-        <Route path="/data-entry"><DataEntry /></Route>
-        <Route path="/algorithm"><AlgorithmSelect /></Route>
-        <Route path="*"><Redirect to="/" /></Route>
-      </Switch>
-    </HashRouter>;
-  }
-
-  static contextType = Context;
-}
+export default Stages;
