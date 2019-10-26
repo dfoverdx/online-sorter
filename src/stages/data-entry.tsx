@@ -1,24 +1,24 @@
 import React, { ChangeEvent, PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import ReactifyMarkdown from 'reactify-markdown';
-import { Button } from 'reactstrap';
+import { Button, Card, CardBody, CardDeck } from 'reactstrap';
 import ItemInput from '../components/item-input';
 import Context from '../context';
 
 interface State {
-  hasText: boolean;
+  hasItems: boolean;
 }
 
 export default class DataEntry extends PureComponent<{}, State> {
   context!: CT;
-  state = { hasText: false };
+  state = { hasItems: false };
 
   componentDidMount() {
-    this.setState({ hasText: !!this.context.items.length });
+    this.setState({ hasItems: this.context.items.length > 2 });
   }
 
   onInputChange(e: ChangeEvent<HTMLTextAreaElement>) {
-    this.setState({ hasText: !!e.target.value.trim().length });
+    this.setState({ hasItems: e.target.value.trim().split('\n').length > 2 });
   }
 
   render() {
@@ -38,47 +38,53 @@ export default class DataEntry extends PureComponent<{}, State> {
       <ItemInput onChange={this.onInputChange.bind(this)} />
       <div className="d-flex flex-row justify-content-end">
         <Link to="/algorithm">
-          <Button color="primary" disabled={!this.state.hasText}
-            className="ml-auto">
+          <Button color="primary" disabled={!this.state.hasItems} className="ml-auto">
             Sort Entries
           </Button>
         </Link>
       </div>
-      <div className="pb-2">
-        <ReactifyMarkdown>{`
-          Examples
-          --------
+      <CardDeck className="mt-1">
+        <Card color="light">
+          <CardBody>
+            <ReactifyMarkdown>{`
+              ### Examples ###
 
-          **Single entries**
-          \`\`\`
-          Anna
-          Bob
-          \`\`\`
+              **Single entries**
+              \`\`\`
+              Anna
+              Bob
+              \`\`\`
 
-          **Required single entries**
-          \`\`\`
-          * Candice
-          * Derek
-          \`\`\`
+              **Required single entries**
+              \`\`\`
+              * Candice
+              * Derek
+              \`\`\`
 
-          **Weighted entries**
-          \`\`\`
-          The Smiths | 4
-          Edna + 1 | 2
-          \`\`\`
+              **Weighted entries**
+              \`\`\`
+              The Smiths | 4
+              Edna + 1 | 2
+              \`\`\`
 
-          **Required weighted entries**
-          \`\`\`
-          * The Jones | 3
-          * Fred and Gwen + 1 | 3
-          \`\`\`
+              **Required weighted entries**
+              \`\`\`
+              * The Jones | 3
+              * Fred and Gwen + 1 | 3
+              \`\`\`
+            `}</ReactifyMarkdown>
+          </CardBody>
+        </Card>
+        <Card color="light">
+          <CardBody>
+            <ReactifyMarkdown>{`
+              ### Tips ###
 
-          Tips
-          ----
-
-          * If you have already sorted your list and add new items, add them to the end, and use Insertion Sort.
-        `}</ReactifyMarkdown>
-      </div>
+              * If you have already sorted your list and add new items, add them to the end, and use Insertion Sort.
+            `}</ReactifyMarkdown>
+          </CardBody>
+        </Card>
+      </CardDeck>
     </>;
   }
 

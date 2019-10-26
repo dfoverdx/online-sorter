@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import ReactifyMarkdown from 'reactify-markdown';
 import { Button, Card, CardBody, CardDeck, CardHeader, CardTitle } from 'reactstrap';
 import Context from '../context';
+import RedirectIfNoItems from './redirect-if-no-items';
 
 export default class AlgorithmSelect extends PureComponent {
   context!: CT;
 
   render() {
-    return <>
+    return <RedirectIfNoItems>
       <ReactifyMarkdown>{`
         Select Algorithm
         ================
@@ -39,7 +40,7 @@ export default class AlgorithmSelect extends PureComponent {
           </CardBody>
         </Card>
       </CardDeck>
-    </>;
+    </RedirectIfNoItems>;
   }
 
   static contextType = Context;
