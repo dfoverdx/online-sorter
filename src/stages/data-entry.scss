@@ -1,0 +1,11 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+pre code {
+  display: block;
+  padding: $spacer / 2;
+  background-color: $secondary;
+  color: white;
+  border: $border-color;
+  border-radius: $border-radius;
+}

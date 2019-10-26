@@ -29,6 +29,7 @@ export default class AlgorithmSelect extends PureComponent {
             Pros:
             <ul>
               <li>Fewer context switches / questions are faster to answer</li>
+              {/* <li>Can stop early if you specify a maximum number of items</li> */}
             </ul>
             Cons:
             <ul>
@@ -63,6 +64,7 @@ export default class AlgorithmSelect extends PureComponent {
             </div>
           </CardBody>
         </Card>
+        <div className="w-100 d-xl-none" />
         <div className="w-100 d-lg-none" />
         <Card color="light">
           <CardHeader><CardTitle><h4>Insertion Sort</h4></CardTitle></CardHeader>
@@ -89,6 +91,28 @@ export default class AlgorithmSelect extends PureComponent {
           </CardBody>
         </Card>
       </CardDeck>
+
+      <Link to="/data-entry">
+        <Button className="mb-3">&lt; Back to Item Entry</Button>
+      </Link>
+
+      <ReactifyMarkdown>{`
+        #### Information ####
+
+        If your list is more or less ordered already, such as when you sort it and then go back to add a couple items,
+        select Insertion Sort.  If the list is already completely sorted, [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
+        will have the absolute minimum number of questions (number of items - 1).
+
+        If your list is not sorted, choose either Quicksort or Binary Search Tree.  Both sorting methods take about the
+        same amount of time.  If you're good at switching contexts in your head, choose [Binary Search Tree](https://en.wikipedia.org/wiki/Binary_search_tree),
+        otherwise, choose [Quicksort](https://en.wikipedia.org/wiki/Quicksort).
+
+        In case you're interested, the binary search tree implemented is an [AVL tree](https://en.wikipedia.org/wiki/AVL_tree).
+        Ordinarily, AVL trees are very slow because they are over-zealous in their pursuit of maintaining a
+        well-balanced tree.  However, when the time it takes to rebalance a tree is negligible compared to the time
+        required for a single comparison, AVL trees are very performant, as they are very good at reducing the number
+        of comparisons required.
+      `}</ReactifyMarkdown>
     </RedirectIfNoItems>;
   }
 

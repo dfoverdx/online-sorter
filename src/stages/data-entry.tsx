@@ -4,6 +4,7 @@ import ReactifyMarkdown from 'reactify-markdown';
 import { Button, Card, CardBody, CardDeck } from 'reactstrap';
 import ItemInput from '../components/item-input';
 import Context from '../context';
+import './data-entry.scss';
 
 interface State {
   hasItems: boolean;
@@ -75,12 +76,19 @@ export default class DataEntry extends PureComponent<{}, State> {
             `}</ReactifyMarkdown>
           </CardBody>
         </Card>
+        <div className="w-100 d-md-none" />
         <Card color="light">
           <CardBody>
             <ReactifyMarkdown>{`
               ### Tips ###
 
-              * If you have already sorted your list and add new items, add them to the end, and use Insertion Sort.
+              * Entries marked required will not require any questions on the quiz.  This will *dramatically* reduce the
+                length of the quiz.
+
+              * Required items are not ordered amongst other required items.
+
+              * If you have already sorted your list and add new items, add them to the end, and select *Insertion Sort*
+                on the next step.
             `}</ReactifyMarkdown>
           </CardBody>
         </Card>
