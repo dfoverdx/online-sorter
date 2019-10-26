@@ -22,7 +22,7 @@ export default class AlgorithmSelect extends PureComponent {
         Here you select which method we'll use for sorting your list.  Ultimately, all three methods will produce the
         same results.  The difference is only in how long the "quiz" will be.
       `}</ReactifyMarkdown>
-      <CardDeck>
+      <CardDeck className="my-auto">
         <Card color="light">
           <CardHeader><CardTitle><h4>Quicksort</h4></CardTitle></CardHeader>
           <CardBody className="d-flex flex-column">
