@@ -1,13 +1,24 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
 
 body {
   background-color: $secondary;
 }
 
 .App {
-  min-height: calc(100vh - #{$spacer});
+  @include media-breakpoint-up(sm) {
+    margin-top: $spacer / 2;
+    margin-bottom: $spacer / 2;
+    min-height: calc(100vh - #{$spacer});
+    border-radius: $border-radius;
+  }
+
   background-color: white;
+
+  h1:first-child {
+    margin-top: $spacer / 2;
+  }
 }
 
 .App-header {

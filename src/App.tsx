@@ -39,7 +39,7 @@ class App extends React.PureComponent<{}, State> {
 
   render() {
     return (
-      <div className="App container my-2 rounded pt-2 pb-3">
+      <div className="App container pt-2 pb-3">
         <Context.Provider value={this.state}>
           <Stages />
         </Context.Provider>

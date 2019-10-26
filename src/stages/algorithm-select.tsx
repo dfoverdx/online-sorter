@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ReactifyMarkdown from 'reactify-markdown';
 import { Button, Card, CardBody, CardDeck, CardHeader, CardTitle } from 'reactstrap';
 import Context from '../context';
+import './algorithm-select.scss';
 import RedirectIfNoItems from './redirect-if-no-items';
 
 export default class AlgorithmSelect extends PureComponent {
@@ -19,12 +20,11 @@ export default class AlgorithmSelect extends PureComponent {
       `}</ReactifyMarkdown>
       <CardDeck>
         <Card color="light">
-          <CardHeader><CardTitle className="mb-0"><h4 className="mb-0">Quicksort</h4></CardTitle></CardHeader>
-          <CardBody>
+          <CardHeader><CardTitle><h4>Quicksort</h4></CardTitle></CardHeader>
+          <CardBody className="d-flex flex-column">
             Pros:
             <ul>
               <li>Fewer context switches / questions are faster to answer</li>
-              <li>Shows progress bar</li>
             </ul>
             Cons:
             <ul>
@@ -32,8 +32,49 @@ export default class AlgorithmSelect extends PureComponent {
               <li><b>VERY</b> long quiz if list is already mostly sorted</li>
             </ul>
 
-            <div className="text-center">
+            <div className="text-center mt-auto">
               <Link to="/sort/quicksort">
+                <Button color="primary">Select</Button>
+              </Link>
+            </div>
+          </CardBody>
+        </Card>
+        <div className="w-100 d-lg-none" />
+        <Card color="light">
+          <CardHeader><CardTitle><h4>Binary Search Tree</h4></CardTitle></CardHeader>
+          <CardBody className="d-flex flex-column">
+            Pros:
+            <ul>
+              <li>Fewest questions for well-shuffled lists</li>
+            </ul>
+            Cons:
+            <ul>
+              <li>More context switches / questions are slower to answer</li>
+            </ul>
+
+            <div className="text-center mt-auto">
+              <Link to="/sort/binary-search-tree">
+                <Button color="primary">Select</Button>
+              </Link>
+            </div>
+          </CardBody>
+        </Card>
+        <div className="w-100 d-lg-none" />
+        <Card color="light">
+          <CardHeader><CardTitle><h4>Insertion Sort</h4></CardTitle></CardHeader>
+          <CardBody className="d-flex flex-column">
+            Pros:
+            <ul>
+              <li>Fewest questions by far for mostly-ordered lists</li>
+              <li>Fewer context-switches than binary search tree / questions are quicker to answer</li>
+            </ul>
+            Cons:
+            <ul>
+              <li>More context switches than Quicksort / questions are slower to answer</li>
+            </ul>
+
+            <div className="text-center mt-auto">
+              <Link to="/sort/insertion-sort">
                 <Button color="primary">Select</Button>
               </Link>
             </div>

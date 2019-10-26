@@ -29,9 +29,9 @@ export default class DataEntry extends PureComponent<{}, State> {
 
         Enter the items you wish to sort.  Each line represents one item.
 
-        If an item is *required*, prepend a \`*\` to it.  If a line represents multiple items (i.e. has a *weight*) append
-        \`| <weight>\` to it, where \`<weight>\` is the number of items the line represents.  See the examples below for
-        more details.
+        If an item is *required*, prepend a \`*\` to it.  If a line represents multiple items (i.e. has a *weight*)
+        append \`| <weight>\` to it, where \`<weight>\` is the number of items the line represents.  See the examples
+        below for more details.
 
         Your entries will be saved automatically.
       `}</ReactifyMarkdown>
@@ -44,7 +44,7 @@ export default class DataEntry extends PureComponent<{}, State> {
         </Link>
       </div>
       <CardDeck className="mt-1">
-        <Card color="light">
+        <Card color="light" id="examples">
           <CardBody>
             <ReactifyMarkdown>{`
               ### Examples ###

@@ -25,6 +25,9 @@ export default class ItemInput extends PureComponent<Props, State> {
 
   componentDidMount() {
     this.setState({ text: this.stringifyItems() });
+    const input = this.inputRef.current!,
+      offset = input.offsetHeight - input.clientHeight;
+    setImmediate(() => input.style.height = input.scrollHeight + offset + 'px');
   }
 
   private parseItems(): Item[] {
@@ -55,10 +58,15 @@ export default class ItemInput extends PureComponent<Props, State> {
     clearTimeout(this.saveTimeout);
     this.saveTimeout = window.setTimeout(() => this.updateItems(), 3000);
 
+    const input = event.target;
     this.setState({
-      text: event.target.value,
+      text: input.value,
       saved: false
     });
+
+    const offset = input.offsetHeight - input.clientHeight;
+    input.style.height = 'auto'; // allow resizing to be smaller
+    input.style.height = input.scrollHeight + offset + 'px';
 
     this.props.onChange && this.props.onChange(event);
   }
@@ -83,7 +91,7 @@ export default class ItemInput extends PureComponent<Props, State> {
   render() {
     return <>
       <textarea value={this.state.text} onBlur={this.updateItems.bind(this)} ref={this.inputRef}
-        onChange={this.onChange.bind(this)} className="form-control" style={{ height: '50vh', minHeight: '25vh' }} />
+        onChange={this.onChange.bind(this)} className="form-control" style={{ minHeight: '25vh', resize: 'none' }} />
       <div className="mt-1" style={{ height: 0 }}>{this.state.saved && `Items saved`}</div>
     </>;
   }
