@@ -3,11 +3,7 @@ import { Redirect } from 'react-router';
 import Context from '../context';
 import RedirectIfNoItems from './redirect-if-no-items';
 
-interface Props {
-
-}
-
-export default class Sort extends PureComponent<Props> {
+export default class Sort extends PureComponent {
   context!: CT;
 
   render() {
