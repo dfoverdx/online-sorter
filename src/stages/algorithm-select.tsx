@@ -2,12 +2,16 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import ReactifyMarkdown from 'reactify-markdown';
 import { Button, Card, CardBody, CardDeck, CardHeader, CardTitle } from 'reactstrap';
-import Context from '../context';
+import Context, { Algorithm } from '../context';
 import './algorithm-select.scss';
 import RedirectIfNoItems from './redirect-if-no-items';
 
 export default class AlgorithmSelect extends PureComponent {
   context!: CT;
+
+  onSelection(algorithm: Algorithm) {
+    this.context.setAlgorithm(algorithm);
+  }
 
   render() {
     return <RedirectIfNoItems>
@@ -29,12 +33,12 @@ export default class AlgorithmSelect extends PureComponent {
             Cons:
             <ul>
               <li>Slightly more questions than Binary Search Tree</li>
-              <li><b>VERY</b> long quiz if list is already mostly sorted</li>
+              <li><b>Longest possible</b> quiz if list is already mostly sorted</li>
             </ul>
 
             <div className="text-center mt-auto">
               <Link to="/sort/quicksort">
-                <Button color="primary">Select</Button>
+                <Button color="primary" onClick={this.onSelection.bind(this, Algorithm.quicksort)}>Select</Button>
               </Link>
             </div>
           </CardBody>
@@ -54,7 +58,7 @@ export default class AlgorithmSelect extends PureComponent {
 
             <div className="text-center mt-auto">
               <Link to="/sort/binary-search-tree">
-                <Button color="primary">Select</Button>
+                <Button color="primary" onClick={this.onSelection.bind(this, Algorithm.avlTree)}>Select</Button>
               </Link>
             </div>
           </CardBody>
@@ -66,16 +70,20 @@ export default class AlgorithmSelect extends PureComponent {
             Pros:
             <ul>
               <li>Fewest questions by far for mostly-ordered lists</li>
-              <li>Fewer context-switches than binary search tree / questions are quicker to answer</li>
+              <li>Fewer context-switches than Binary Search Tree / questions are quicker to answer</li>
             </ul>
             Cons:
             <ul>
               <li>More context switches than Quicksort / questions are slower to answer</li>
+              <li>
+                <b>Significantly</b> more questions than Binary Search Tree or Quicksort if list is not already mostly
+                ordered
+              </li>
             </ul>
 
             <div className="text-center mt-auto">
               <Link to="/sort/insertion-sort">
-                <Button color="primary">Select</Button>
+                <Button color="primary" onClick={this.onSelection.bind(this, Algorithm.insertionSort)}>Select</Button>
               </Link>
             </div>
           </CardBody>
