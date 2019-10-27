@@ -1,7 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { FC, PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import ReactifyMarkdown from 'reactify-markdown';
 import { Button, Card, CardBody, CardDeck, CardHeader, CardTitle } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import BackToItemEntry from '../components/back-to-item-entry';
 import Context, { Algorithm } from '../context';
 import './algorithm-select.scss';
@@ -15,6 +17,15 @@ export default class AlgorithmSelect extends PureComponent {
   }
 
   render() {
+    const Select: FC<{ url: string, algorithm: Algorithm }> = ({ url, algorithm }) =>
+      <div className="text-center mt-auto">
+        <Link to={`/sort/${url}`}>
+          <Button color="primary" onClick={this.onSelection.bind(this, algorithm)}>
+            Select <FontAwesomeIcon icon={faAngleRight} />
+          </Button>
+        </Link>
+      </div>;
+
     return <RedirectIfNoItems>
       <ReactifyMarkdown>{`
         Select Algorithm
@@ -38,11 +49,7 @@ export default class AlgorithmSelect extends PureComponent {
               <li><b>Longest possible</b> quiz if list is already mostly sorted</li>
             </ul>
 
-            <div className="text-center mt-auto">
-              <Link to="/sort/quicksort">
-                <Button color="primary" onClick={this.onSelection.bind(this, Algorithm.quicksort)}>Select</Button>
-              </Link>
-            </div>
+            <Select url="quicksort" algorithm={Algorithm.quicksort} />
           </CardBody>
         </Card>
         <div className="w-100 d-lg-none" />
@@ -58,13 +65,7 @@ export default class AlgorithmSelect extends PureComponent {
               <li>More context switches / questions are a little slower to answer</li>
             </ul>
 
-            <div className="text-center mt-auto">
-              <Link to="/sort/binary-insertion-sort">
-                <Button color="primary" onClick={this.onSelection.bind(this, Algorithm.binaryInsertion)}>
-                  Select
-                </Button>
-              </Link>
-            </div>
+            <Select url="binary-insertion-sort" algorithm={Algorithm.binaryInsertion} />
           </CardBody>
         </Card>
         <div className="w-100 d-xl-none" />
@@ -86,11 +87,7 @@ export default class AlgorithmSelect extends PureComponent {
               </li>
             </ul>
 
-            <div className="text-center mt-auto">
-              <Link to="/sort/insertion-sort">
-                <Button color="primary" onClick={this.onSelection.bind(this, Algorithm.insertionSort)}>Select</Button>
-              </Link>
-            </div>
+            <Select url="insertion-sort" algorithm={Algorithm.insertionSort} />
           </CardBody>
         </Card>
         <div className="w-50 d-none d-lg-flex d-xl-none" />

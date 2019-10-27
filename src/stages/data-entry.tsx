@@ -1,7 +1,9 @@
 import React, { ChangeEvent, PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import ReactifyMarkdown from 'reactify-markdown';
-import { Button, Card, CardBody, CardDeck } from 'reactstrap';
+import { Button, Card, CardBody, CardDeck, CardHeader, CardTitle } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import ItemInput from '../components/item-input';
 import Context from '../context';
 import './data-entry.scss';
@@ -40,16 +42,15 @@ export default class DataEntry extends PureComponent<{}, State> {
       <div className="d-flex flex-row justify-content-end">
         <Link to="/algorithm">
           <Button color="primary" disabled={!this.state.hasItems} className="ml-auto">
-            Sort Entries
+            Sort Entries <FontAwesomeIcon icon={faAngleRight} />
           </Button>
         </Link>
       </div>
       <CardDeck className="mt-1">
         <Card color="light" id="examples">
+          <CardHeader><CardTitle><h3>Examples</h3></CardTitle></CardHeader>
           <CardBody>
             <ReactifyMarkdown>{`
-              ### Examples ###
-
               **Single entries**
               \`\`\`
               Anna
@@ -78,10 +79,9 @@ export default class DataEntry extends PureComponent<{}, State> {
         </Card>
         <div className="w-100 d-md-none" />
         <Card color="light">
+          <CardHeader><CardTitle><h3>Tips</h3></CardTitle></CardHeader>
           <CardBody>
             <ReactifyMarkdown>{`
-              ### Tips ###
-
               Entries marked required will not require any questions on the quiz.  This will *dramatically* reduce the
               length of the quiz.
 
