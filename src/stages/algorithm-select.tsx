@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import ReactifyMarkdown from 'reactify-markdown';
 import { Button, Card, CardBody, CardDeck, CardHeader, CardTitle } from 'reactstrap';
+import BackToItemEntry from '../components/back-to-item-entry';
 import Context, { Algorithm } from '../context';
 import './algorithm-select.scss';
 import RedirectIfNoItems from './redirect-if-no-items';
@@ -95,9 +96,7 @@ export default class AlgorithmSelect extends PureComponent {
         <div className="w-50 d-none d-lg-flex d-xl-none" />
       </CardDeck>
 
-      <Link to="/data-entry">
-        <Button className="mb-3">&lt; Back to Item Entry</Button>
-      </Link>
+      <BackToItemEntry />
 
       <ReactifyMarkdown>{`
         #### Information ####
