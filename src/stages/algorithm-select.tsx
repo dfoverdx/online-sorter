@@ -34,7 +34,7 @@ export default class AlgorithmSelect extends PureComponent {
             </ul>
             Cons:
             <ul>
-              <li>Slightly more questions than Binary Search Tree</li>
+              <li>Slightly more questions than Binary Insertion Sort</li>
               <li><b>Longest possible</b> quiz if list is already mostly sorted</li>
             </ul>
 
@@ -75,14 +75,14 @@ export default class AlgorithmSelect extends PureComponent {
             Pros:
             <ul>
               <li>Fewest questions by far for mostly-ordered lists</li>
-              <li>Fewer context-switches than Binary Search Tree / questions are quicker to answer</li>
+              <li>Fewer context-switches than Binary Insertion Sort / questions are quicker to answer</li>
             </ul>
             Cons:
             <ul>
               <li>More context switches than Quicksort / questions are slower to answer</li>
               <li>
-                <b>Significantly</b> more questions than Binary Search Tree or Quicksort if list is not already mostly
-                ordered
+                <b>Significantly</b> more questions than Binary Insertion Sort or Quicksort if list is not already
+                mostly ordered
               </li>
             </ul>
 
