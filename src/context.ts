@@ -7,7 +7,7 @@ export enum StorageKeys {
 
 export enum Algorithm {
   quicksort = 'qs',
-  avlTree = 'avl',
+  binaryInsertion = 'binIns',
   insertionSort = 'ins'
 }
 

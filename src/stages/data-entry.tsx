@@ -82,13 +82,13 @@ export default class DataEntry extends PureComponent<{}, State> {
             <ReactifyMarkdown>{`
               ### Tips ###
 
-              * Entries marked required will not require any questions on the quiz.  This will *dramatically* reduce the
-                length of the quiz.
+              Entries marked required will not require any questions on the quiz.  This will *dramatically* reduce the
+              length of the quiz.
 
-              * Required items are not ordered amongst other required items.
+              Required items are not ordered amongst other required items.
 
-              * If you have already sorted your list and add new items, add them to the end, and select *Insertion Sort*
-                on the next step.
+              If you have already sorted your list and add new items, don't add them to the start; add them "near"
+              where they need to be or to the end of the list.  Then select *Insertion Sort* on the next step.
             `}</ReactifyMarkdown>
           </CardBody>
         </Card>

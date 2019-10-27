@@ -46,7 +46,7 @@ export default class AlgorithmSelect extends PureComponent {
         </Card>
         <div className="w-100 d-lg-none" />
         <Card color="light">
-          <CardHeader><CardTitle><h4>Binary Search Tree</h4></CardTitle></CardHeader>
+          <CardHeader><CardTitle><h4>Binary Insertion Sort</h4></CardTitle></CardHeader>
           <CardBody className="d-flex flex-column">
             Pros:
             <ul>
@@ -54,12 +54,14 @@ export default class AlgorithmSelect extends PureComponent {
             </ul>
             Cons:
             <ul>
-              <li>More context switches / questions are slower to answer</li>
+              <li>More context switches / questions are a little slower to answer</li>
             </ul>
 
             <div className="text-center mt-auto">
-              <Link to="/sort/binary-search-tree">
-                <Button color="primary" onClick={this.onSelection.bind(this, Algorithm.avlTree)}>Select</Button>
+              <Link to="/sort/binary-insertion-sort">
+                <Button color="primary" onClick={this.onSelection.bind(this, Algorithm.binaryInsertion)}>
+                  Select
+                </Button>
               </Link>
             </div>
           </CardBody>
@@ -90,6 +92,7 @@ export default class AlgorithmSelect extends PureComponent {
             </div>
           </CardBody>
         </Card>
+        <div className="w-50 d-none d-lg-flex d-xl-none" />
       </CardDeck>
 
       <Link to="/data-entry">
@@ -103,15 +106,9 @@ export default class AlgorithmSelect extends PureComponent {
         select Insertion Sort.  If the list is already completely sorted, [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
         will have the absolute minimum number of questions (number of items - 1).
 
-        If your list is not sorted, choose either Quicksort or Binary Search Tree.  Both sorting methods take about the
-        same amount of time.  If you're good at switching contexts in your head, choose [Binary Search Tree](https://en.wikipedia.org/wiki/Binary_search_tree),
+        If your list is not sorted, choose either Quicksort or Binary Insertion Sort.  Both sorting methods take about
+        the same amount of time.  If you're good at switching contexts in your head, choose [Binary Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort#Variants),
         otherwise, choose [Quicksort](https://en.wikipedia.org/wiki/Quicksort).
-
-        In case you're interested, the binary search tree implemented is an [AVL tree](https://en.wikipedia.org/wiki/AVL_tree).
-        Ordinarily, AVL trees are very slow because they are over-zealous in their pursuit of maintaining a
-        well-balanced tree.  However, when the time it takes to rebalance a tree is negligible compared to the time
-        required for a single comparison, AVL trees are very performant, as they are very good at reducing the number
-        of comparisons required.
       `}</ReactifyMarkdown>
     </RedirectIfNoItems>;
   }
