@@ -48,7 +48,6 @@ export default class AlgorithmSelect extends PureComponent {
               <li>Slightly more questions than Binary Insertion Sort</li>
               <li><b>Longest possible</b> quiz if list is already mostly sorted</li>
             </ul>
-
             <Select url="quicksort" algorithm={Algorithm.quicksort} />
           </CardBody>
         </Card>
@@ -64,7 +63,6 @@ export default class AlgorithmSelect extends PureComponent {
             <ul>
               <li>More context switches / questions are a little slower to answer</li>
             </ul>
-
             <Select url="binary-insertion-sort" algorithm={Algorithm.binaryInsertion} />
           </CardBody>
         </Card>
@@ -86,7 +84,6 @@ export default class AlgorithmSelect extends PureComponent {
                 mostly ordered
               </li>
             </ul>
-
             <Select url="insertion-sort" algorithm={Algorithm.insertionSort} />
           </CardBody>
         </Card>
