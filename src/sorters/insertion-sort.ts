@@ -26,6 +26,8 @@ export default class InsertionSort extends Sorter<number> {
           } else {
             break;
           }
+        } else if (sortedItem.required) {
+          break;
         }
 
         const [promise, prompt] = Sorter.createPrompt(item, sortedItem);

@@ -35,6 +35,8 @@ export default class BinaryInsertionSort extends Sorter<number> {
       } else {
         return idx;
       }
+    } else if (sortedItem.required) {
+      return this.binarySearch(item, idx + 1, max);
     }
 
     const [promise, prompt] = Sorter.createPrompt(item, sortedItem);
