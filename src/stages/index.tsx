@@ -1,17 +1,19 @@
 import React, { FC } from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import AlgorithmSelect from './algorithm-select';
-import DataEntry from './data-entry';
+import Home from './home';
+import ItemEntry from './item-entry';
 import Sort from './sort';
 
 const Stages: FC = () =>
   <HashRouter>
     <Switch>
-      <Route exact path="/"><Redirect to="/data-entry" /></Route>
-      <Route path="/data-entry"><DataEntry /></Route>
+      <Route exact path="/"><Home /></Route>
+      <Route path="/home"><Home /></Route>
+      <Route path="/item-entry"><ItemEntry /></Route>
       <Route path="/algorithm"><AlgorithmSelect /></Route>
       <Route path="/sort"><Sort /></Route>
-      <Route path="*"><Redirect to="/" /></Route>
+      <Route path="*"><Redirect to="/item-entry" /></Route>
     </Switch>
   </HashRouter>;
 

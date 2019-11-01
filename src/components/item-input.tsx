@@ -1,6 +1,6 @@
 import React, { ChangeEvent, PureComponent } from 'react';
 import Context from '../context';
-import { Item } from '../item';
+import { Item } from '../types';
 
 const itemRegex = /^\s*(\*)?\s*(.+?)\s*(?:\|\s*(\d+))?\s*$/;
 
@@ -11,6 +11,7 @@ interface Props {
 interface State {
   text: string;
   saved: boolean;
+  error: string | null;
 }
 
 export default class ItemInput extends PureComponent<Props, State> {
@@ -18,13 +19,15 @@ export default class ItemInput extends PureComponent<Props, State> {
   context!: React.ContextType<typeof Context>;
   state: State = {
     text: '',
-    saved: false
+    saved: false,
+    error: null,
   };
 
   private saveTimeout = -1;
 
   componentDidMount() {
     this.setState({ text: this.stringifyItems() });
+    this.validate();
     const input = this.inputRef.current!,
       offset = input.offsetHeight - input.clientHeight;
     setImmediate(() => input.style.height = input.scrollHeight + offset + 'px');
@@ -50,19 +53,45 @@ export default class ItemInput extends PureComponent<Props, State> {
 
   private updateItems(): void {
     clearTimeout(this.saveTimeout);
-    this.context.updateItems(this.parseItems());
-    this.setState({ saved: true });
+    const items = this.validate();
+    if (items) {
+      this.context.updateItems(items);
+      this.setState({ saved: true, error: null });
+    }
+  }
+
+  private validate(): Item[] | null {
+    const items = this.parseItems();
+    for (let i = 0; i < items.length - 1; i++) {
+      for (let j = i + 1; j < items.length; j++) {
+        if (items[i].text === items[j].text) {
+          this.setState({
+            saved: false,
+            error: `Duplicate item: ${items[i].text}`,
+          });
+          return null;
+        }
+      }
+    }
+
+    return items;
   }
 
   private onChange(event: ChangeEvent<HTMLTextAreaElement>): void {
     clearTimeout(this.saveTimeout);
-    this.saveTimeout = window.setTimeout(() => this.updateItems(), 3000);
+    const input = event.target,
+      items = this.validate(),
+      nextState: Partial<State> = {
+        text: input.value,
+      };
 
-    const input = event.target;
-    this.setState({
-      text: input.value,
-      saved: false
-    });
+    if (items) {
+      this.saveTimeout = window.setTimeout(() => this.updateItems(), 3000);
+      nextState.saved = false;
+      nextState.error = null;
+    }
+
+    this.setState(nextState as State);
 
     const offset = input.offsetHeight - input.clientHeight;
     input.style.height = 'auto'; // allow resizing to be smaller
@@ -89,10 +118,22 @@ export default class ItemInput extends PureComponent<Props, State> {
   }
 
   render() {
+    const {
+        saved,
+        error
+      } = this.state,
+      messageStyle = {
+        height: 0,
+        color:
+          saved ? 'green' :
+          error ? 'red' :
+          'inherit'
+      };
+
     return <>
       <textarea value={this.state.text} onBlur={this.updateItems.bind(this)} ref={this.inputRef}
         onChange={this.onChange.bind(this)} className="form-control" style={{ minHeight: '25vh', resize: 'none' }} />
-      <div className="mt-1" style={{ height: 0 }}>{this.state.saved && `Items saved`}</div>
+      <div className="mt-1" style={messageStyle}>{saved ? `Items saved` : error}</div>
     </>;
   }
 

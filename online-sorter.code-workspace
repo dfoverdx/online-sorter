@@ -5,6 +5,10 @@
 		}
 	],
 	"settings": {
-		"editor.tabSize": 2
+		"editor.tabSize": 2,
+		"importSorter.generalConfiguration.exclude": [
+			"home\\.tsx$",
+			"\\.d\\.ts$"
+		]
 	}
 }

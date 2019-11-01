@@ -3,16 +3,18 @@
 @import "~bootstrap/scss/mixins";
 
 body {
-  background-color: $secondary;
+  // background-color: $dark;
 }
 
 .App {
-  @include media-breakpoint-up(sm) {
-    margin-top: $spacer / 2;
-    margin-bottom: $spacer / 2;
-    min-height: calc(100vh - #{$spacer});
-    border-radius: $border-radius;
-  }
+  min-height: 100vh;
+
+  // @include media-breakpoint-up(sm) {
+  //   margin-top: $spacer / 2;
+  //   margin-bottom: $spacer / 2;
+  //   min-height: calc(100vh - #{$spacer});
+  //   border-radius: $border-radius;
+  // }
 
   background-color: white;
 

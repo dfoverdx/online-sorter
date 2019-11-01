@@ -2,8 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.scss';
 import Context, { Algorithm, AppContext, StorageKeys } from './context';
-import { Item } from './item';
 import Stages from './stages';
+import { Item } from './types';
 
 interface State extends AppContext {}
 

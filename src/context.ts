@@ -1,5 +1,5 @@
 import React from 'react';
-import { Item } from './item';
+import { Item } from './types';
 
 export enum StorageKeys {
   items = 'items',

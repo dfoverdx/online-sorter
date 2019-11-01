@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import ItemInput from '../components/item-input';
 import Context from '../context';
-import './data-entry.scss';
+import './item-entry.scss';
 
 interface State {
   hasItems: boolean;
@@ -39,10 +39,10 @@ export default class DataEntry extends PureComponent<{}, State> {
         Your entries will be saved automatically.
       `}</ReactifyMarkdown>
       <ItemInput onChange={this.onInputChange.bind(this)} />
-      <div className="d-flex flex-row justify-content-end">
+      <div className="d-flex flex-row justify-content-end my-2">
         <Link to="/algorithm">
-          <Button color="primary" disabled={!this.state.hasItems} className="ml-auto">
-            Sort Entries <FontAwesomeIcon icon={faAngleRight} />
+          <Button color="primary" disabled={!this.state.hasItems} className="ml-auto" size="lg">
+            Sort Entries <FontAwesomeIcon icon={faAngleRight} size="lg" />
           </Button>
         </Link>
       </div>
