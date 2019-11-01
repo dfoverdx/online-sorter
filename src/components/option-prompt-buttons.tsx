@@ -11,7 +11,9 @@ const OptionPromptButtons: FC<{ prompt: Prompt }> = ({ prompt }) => {
     } = prompt;
 
     const OptBtn: FC<{ opt: Item }> = ({ opt }) =>
-      <Button onClick={() => resolve(opt)} className="w-100 mb-2" color="light">{opt.text}</Button>
+      <Button onClick={() => resolve(opt)} className="w-100 mb-2 border" style={{height: 100, fontSize: 40}} color="light">
+        {opt.text}
+      </Button>
 
     return <Row>
       <Col xs={12} md={opt3 ? 12 : 6} lg={opt3 ? 4 : 6}><OptBtn opt={opt1} /></Col>

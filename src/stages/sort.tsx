@@ -7,7 +7,7 @@ import BinaryInsertionSort from '../sorters/binary-insertion-sort';
 import InsertionSort from '../sorters/insertion-sort';
 import Quicksort from '../sorters/quicksort';
 import Sorter from '../sorters/sorter';
-import { Item, Prompt } from '../types';
+import { Prompt } from '../types';
 import RedirectIfNoItems from './redirect-if-no-items';
 
 interface State {
@@ -67,8 +67,10 @@ export default class Sort extends PureComponent<{}, State> {
     }
 
     return <RedirectIfNoItems>
-      <OptionPromptButtons prompt={this.state.prompt} />
-      <BackToItemEntry />
+      <div className="d-flex flex-column">
+        <BackToItemEntry className="align-self-start" />
+        <OptionPromptButtons prompt={this.state.prompt} />
+      </div>
     </RedirectIfNoItems>;
   }
 
