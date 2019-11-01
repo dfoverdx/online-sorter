@@ -1,10 +1,14 @@
-import { Item, itemsEqual, Prompt } from '../types';
-import Base from './base';
+import { Item, itemsEqual } from '../types';
+import Sorter, { TriggerPrompt, UpdateProgress } from './sorter';
 
-export default class Quicksort extends Base {
+export default class Quicksort extends Sorter<Item> {
+  constructor(items: Item[], triggerPrompt: TriggerPrompt, updateProgress?: UpdateProgress<Item>) {
+    super(items, triggerPrompt, new Array(items.length).fill(false), updateProgress);
+  }
+
   async run() {
     if (this.updateProgress) {
-      this.updateProgress(this.progressArray);
+      this.updateProgress(this.progress);
     }
 
     return this.qs(0, this.items.length - 1);
@@ -13,9 +17,9 @@ export default class Quicksort extends Base {
   private async qs(low: number, high: number): Promise<void> {
     if (low < high) {
       const pIdx = await this.partition(low, high);
-      this.progressArray[pIdx] = this.items[pIdx];
+      this.progress[pIdx] = this.items[pIdx];
       if (this.updateProgress) {
-        this.updateProgress(this.progressArray);
+        this.updateProgress(this.progress);
       }
 
       await this.qs(low, pIdx - 1);
@@ -40,8 +44,8 @@ export default class Quicksort extends Base {
         continue;
       }
 
-      const [promise, prompt] = Base.createPrompt(pivot, item)
-      this.triggerPromptUser(prompt);
+      const [promise, prompt] = Sorter.createPrompt(pivot, item)
+      this.triggerPrompt(prompt);
       const result = await promise;
 
       if (itemsEqual(result, item)) {

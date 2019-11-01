@@ -1,15 +1,17 @@
 import { Item, Prompt } from '../types';
 
-export default abstract class AlgorithmBase {
+export type TriggerPrompt = (prompt: Prompt) => void;
+export type Progress<T extends number | Item> = T extends number ? T : (T | false)[];
+export type UpdateProgress<T extends number | Item> = (progress: Progress<T>) => void;
+
+export default abstract class Sorter<TProgress extends Item | number> {
   constructor(
     public items: Item[],
-    protected triggerPromptUser: (prompt: Prompt) => void,
-    protected updateProgress?: (progress: boolean[] | (Item | false)[]) => void)
+    protected triggerPrompt: TriggerPrompt,
+    protected progress: Progress<TProgress>,
+    protected updateProgress?: UpdateProgress<TProgress>)
   {
-    this.progressArray = new Array(items.length).fill(false);
   }
-
-  protected progressArray: (Item | false)[] | boolean[];
 
   abstract async run(): Promise<void>;
 
