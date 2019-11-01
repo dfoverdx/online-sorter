@@ -15,6 +15,8 @@ export default abstract class Sorter<TProgress extends Item | number> {
 
   abstract async run(): Promise<void>;
 
+  abstract cancel(): void;
+
   protected swap(i: number, j: number): void {
     [this.items[i], this.items[j]] = [this.items[j], this.items[i]];
   }

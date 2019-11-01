@@ -68,7 +68,14 @@ export default class Sort extends PureComponent<{}, State> {
 
     return <RedirectIfNoItems>
       <div className="d-flex flex-column">
-        <BackToItemEntry className="align-self-start" />
+        <BackToItemEntry className="align-self-start" onClick={() => this.sorter.cancel()} />
+        <p className="lead text-center">
+          {
+            this.state.prompt.item3 ?
+              <>Which item is the <b><i>second</i></b> most important?</> :
+              'Which item is more important?'
+          }
+        </p>
         <OptionPromptButtons prompt={this.state.prompt} />
       </div>
     </RedirectIfNoItems>;

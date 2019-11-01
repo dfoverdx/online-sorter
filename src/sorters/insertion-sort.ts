@@ -44,4 +44,8 @@ export default class InsertionSort extends Sorter<number> {
       this.progress = i;
     }
   }
+
+  cancel() {
+    // pass
+  }
 }

@@ -6,6 +6,9 @@ export default class BinaryInsertionSort extends Sorter<number> {
     super(items, triggerPrompt, 1, updateProgress);
   }
 
+  private curItem: Item | null = null;
+  private curIdx: number = -1;
+
   async run() {
     const items = this.items;
     for (let i = 1; i < items.length; i++) {
@@ -13,11 +16,18 @@ export default class BinaryInsertionSort extends Sorter<number> {
         this.updateProgress(this.progress);
       }
 
-      const item = items.splice(i, 1)[0],
+      this.curIdx = i;
+      const item = this.curItem = items.splice(i, 1)[0],
         idx = await this.binarySearch(item, 0, i);
 
       items.splice(idx, 0, item);
       this.progress = i;
+    }
+  }
+
+  cancel() {
+    if (this.curItem) {
+      this.items.splice(this.curIdx, 0, this.curItem);
     }
   }
 

@@ -14,6 +14,10 @@ export default class Quicksort extends Sorter<Item> {
     return this.qs(0, this.items.length - 1);
   }
 
+  cancel() {
+    // pass
+  }
+
   private async qs(low: number, high: number): Promise<void> {
     if (low < high) {
       const pIdx = await this.partition(low, high);
