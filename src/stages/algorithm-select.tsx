@@ -17,9 +17,17 @@ export default class AlgorithmSelect extends PureComponent {
   }
 
   render() {
-    const AlgCard: FC<{ algorithm: Algorithm, url: string, name: string, pros: ReactNode[], cons: ReactNode[]}> =
-        ({ algorithm: alg, url, name, pros, cons }) =>
-          <Card color="light">
+    const AlgCard: FC<{
+      algorithm: Algorithm,
+      url: string,
+      name: string,
+      pros: ReactNode[],
+      cons: ReactNode[],
+      color?: string,
+      inverse?: boolean,
+    }> =
+        ({ algorithm: alg, url, name, pros, cons, color, inverse }) =>
+          <Card color={color || 'light'} inverse={inverse}>
             <CardHeader><CardTitle><h4>{name}</h4></CardTitle></CardHeader>
             <CardBody className="d-flex flex-column">
               Pros:
@@ -79,6 +87,8 @@ export default class AlgorithmSelect extends PureComponent {
           algorithm={Algorithm.insertionSort}
           url="insertion-sort"
           name="Insertion Sort"
+          color="secondary"
+          inverse
           pros={[
             <><b>Fewest questions by far</b> for mostly-ordered lists</>,
             'Fewer context switches than Binary Insertion Sort--questions are quicker to answer',
@@ -95,7 +105,7 @@ export default class AlgorithmSelect extends PureComponent {
         <div className="w-50 d-none d-lg-flex d-xl-none" />
       </CardDeck>
 
-      <BackToItemEntry />
+      <BackToItemEntry className="mb-3" />
 
       <ReactifyMarkdown>{`
         #### Information ####
