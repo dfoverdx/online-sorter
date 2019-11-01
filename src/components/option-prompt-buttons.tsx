@@ -11,13 +11,13 @@ const OptionPromptButtons: FC<{ prompt: Prompt }> = ({ prompt }) => {
     } = prompt;
 
     const OptBtn: FC<{ opt: Item }> = ({ opt }) =>
-      <Col xs={12} md={opt3 ? 12 : 6} lg={opt3 ? 4 : 6} className="h-100">
-        <Button onClick={() => resolve(opt)} className="w-100 mb-2 border" style={{minHeight: 100, fontSize: 40}} color="light">
+      <Col xs={12} md={opt3 ? 12 : 6} lg={opt3 ? 4 : 6} className="align-self-stretch">
+        <Button onClick={() => resolve(opt)} className="w-100 mb-2 border h-100" style={{minHeight: 100, fontSize: 40}} color="light">
           {opt.text}
         </Button>
       </Col>;
 
-    return <Row className="align-items-center">
+    return <Row className="align-items-stretch">
       <OptBtn opt={opt1} />
       <OptBtn opt={opt2} />
       {opt3 && <OptBtn opt={opt3} />}
