@@ -12,6 +12,14 @@ interface State {
   text: string;
   saved: boolean;
   error: string | null;
+  autosize: boolean;
+  canResize: boolean;
+}
+
+declare global {
+  interface Window {
+    ResizeObserver: ResizeObserver;
+  }
 }
 
 export default class ItemInput extends PureComponent<Props, State> {
@@ -21,6 +29,8 @@ export default class ItemInput extends PureComponent<Props, State> {
     text: '',
     saved: false,
     error: null,
+    autosize: true,
+    canResize: true,
   };
 
   private saveTimeout = -1;
@@ -31,6 +41,17 @@ export default class ItemInput extends PureComponent<Props, State> {
     const input = this.inputRef.current!,
       offset = input.offsetHeight - input.clientHeight;
     setImmediate(() => input.style.height = input.scrollHeight + offset + 'px');
+
+    if (window.ResizeObserver) {
+      const observer = new ResizeObserver(() => {
+        this.setState({ autosize: false });
+        observer.disconnect();
+      });
+
+      observer.observe(input);
+    } else {
+      this.setState({ canResize: false });
+    }
   }
 
   private parseItems(): Item[] {
@@ -93,9 +114,11 @@ export default class ItemInput extends PureComponent<Props, State> {
 
     this.setState(nextState as State);
 
-    const offset = input.offsetHeight - input.clientHeight;
-    input.style.height = 'auto'; // allow resizing to be smaller
-    input.style.height = input.scrollHeight + offset + 'px';
+    if (this.state.autosize) {
+      const offset = input.offsetHeight - input.clientHeight;
+      input.style.height = 'auto'; // allow resizing to be smaller
+      input.style.height = input.scrollHeight + offset + 'px';
+    }
 
     this.props.onChange && this.props.onChange(event);
   }
@@ -120,7 +143,8 @@ export default class ItemInput extends PureComponent<Props, State> {
   render() {
     const {
         saved,
-        error
+        error,
+        canResize,
       } = this.state,
       messageStyle = {
         height: 0,
@@ -132,7 +156,8 @@ export default class ItemInput extends PureComponent<Props, State> {
 
     return <>
       <textarea value={this.state.text} onBlur={this.updateItems.bind(this)} ref={this.inputRef}
-        onChange={this.onChange.bind(this)} className="form-control" style={{ minHeight: '25vh', resize: 'none' }} />
+        onChange={this.onChange.bind(this)} className="form-control"
+        style={{ minHeight: '25vh', resize: canResize ? 'vertical' : 'none' }} />
       <div className="mt-1" style={messageStyle}>{saved ? `Items saved` : error}</div>
     </>;
   }
