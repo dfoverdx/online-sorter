@@ -1,6 +1,7 @@
 {
   "name": "online-sorter",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "homepage": "https://dfdx.us/subjective-sorter",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
