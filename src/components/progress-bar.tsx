@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { FC, PureComponent } from 'react';
 import { Progress } from 'reactstrap';
 import { Item } from '../types';
 
@@ -15,17 +15,19 @@ function isNumberProps(props: ItemProps | NumberProps): props is NumberProps {
   return typeof props.progress === 'number';
 }
 
-export default class ProgressBar<Props extends ItemProps | NumberProps> extends PureComponent<Props> {
-  render() {
-    let value: number,
-      props = this.props as unknown as ItemProps | NumberProps;
+const ProgressBar: FC<ItemProps | NumberProps> = (props) => {
+  let value: number,
+    max: number;
 
-    if (isNumberProps(props)) {
-      value = props.progress / props.max * 100;
-    } else {
-      value = props.progress.filter(p => p !== false).length / props.progress.length * 100;
-    }
-
-    return <Progress value={value} />;
+  if (isNumberProps(props)) {
+    value = props.progress;
+    max = props.max;
+  } else {
+    value = props.progress.filter(p => p !== false).length;
+    max = props.progress.length;
   }
+
+  return <Progress value={value} striped max={max} />;
 }
+
+export default ProgressBar;
