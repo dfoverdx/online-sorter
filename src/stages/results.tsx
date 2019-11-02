@@ -1,4 +1,5 @@
 import React, { ContextType, PureComponent } from 'react';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import BackToItemEntry from '../components/back-to-item-entry';
 import Context from '../context';
 import RedirectIfNoItems from './redirect-if-no-items';
@@ -9,10 +10,12 @@ export default class Results extends PureComponent {
   render() {
     return <RedirectIfNoItems>
       <h1 className="display-1">Results</h1>
-      <pre>
-        {this.context.items.map(i => i.text).join('\n')}
-      </pre>
-      <BackToItemEntry />
+      <ListGroup>
+        {this.context.items.map((item, i) =>
+          <ListGroupItem key={item.text}>{item.text}</ListGroupItem>)
+        }
+      </ListGroup>
+      <BackToItemEntry className="mt-3" />
     </RedirectIfNoItems>;
   }
 
