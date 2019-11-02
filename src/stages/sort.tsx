@@ -60,6 +60,8 @@ export default class Sort extends PureComponent<{}, State> {
       prompt,
       promptCount: this.state.promptCount + 1,
     });
+
+    this.context.updateItems(this.context.items);
   }
 
   render() {
