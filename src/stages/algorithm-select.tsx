@@ -26,25 +26,25 @@ export default class AlgorithmSelect extends PureComponent {
       color?: string,
       inverse?: boolean,
     }> =
-        ({ algorithm: alg, url, name, pros, cons, color, inverse }) =>
-          <Card color={color || 'light'} inverse={inverse}>
-            <CardHeader><CardTitle><h4>{name}</h4></CardTitle></CardHeader>
-            <CardBody className="d-flex flex-column">
-              Pros:
-              <ul>
-                {pros.map((text, i) => <li key={i}>{text}</li>)}
-              </ul>
-              Cons:
-              <ul>
-                {cons.map((text, i) => <li key={i}>{text}</li>)}
-              </ul>
-              <div className="text-center mt-auto">
-                <Link to={`/sort/${url}`} onClick={this.onSelection.bind(this, alg)} className="btn btn-primary btn-lg">
-                  Select <FontAwesomeIcon icon={faAngleRight} size="lg" />
-                </Link>
-              </div>
-            </CardBody>
-          </Card>;
+      ({ algorithm: alg, url, name, pros, cons, color, inverse }) =>
+        <Card color={color || 'light'} inverse={inverse}>
+          <CardHeader><CardTitle><h4>{name}</h4></CardTitle></CardHeader>
+          <CardBody className="d-flex flex-column">
+            Pros:
+            <ul>
+              {pros.map((text, i) => <li key={i}>{text}</li>)}
+            </ul>
+            Cons:
+            <ul>
+              {cons.map((text, i) => <li key={i}>{text}</li>)}
+            </ul>
+            <div className="text-center mt-auto">
+              <Link to={`/sort/${url}`} onClick={this.onSelection.bind(this, alg)} className="btn btn-primary btn-lg">
+                Select <FontAwesomeIcon icon={faAngleRight} size="lg" />
+              </Link>
+            </div>
+          </CardBody>
+        </Card>;
 
     return <RedirectIfNoItems>
       <ReactifyMarkdown>{`
@@ -75,6 +75,7 @@ export default class AlgorithmSelect extends PureComponent {
           name="Binary Insertion Sort"
           pros={[
             'Fewest questions for well-shuffled lists',
+            'Roughly the same number of questions no matter how sorted or unsorted the list is',
           ]}
           cons={[
             'More context switches--questions are a little slower to answer',

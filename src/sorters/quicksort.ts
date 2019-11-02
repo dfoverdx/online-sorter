@@ -32,6 +32,25 @@ export default class Quicksort extends Sorter<Item> {
   }
 
   private async partition(low: number, high: number): Promise<number> {
+    if (high - low > 5) {
+      // find middle pivot
+      const pivots = this.items.slice(high - 3).filter(i => !i.required);
+
+      if (pivots.length > 1) {
+        const [promise, prompt] = Sorter.createPrompt(...pivots as [Item, Item, Item?]);
+        this.triggerPrompt(prompt);
+        const mid = await promise,
+          idx = this.items.indexOf(mid);
+
+        // idx should never be -1, but just in case
+        if (idx === -1) {
+          console.warn(`Did not find item ${mid.text}`);
+        } else {
+          this.swap(idx, high);
+        }
+      }
+    }
+
     const pivot = this.items[high];
     if (pivot.required) {
       this.swap(low, high);

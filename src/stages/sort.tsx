@@ -13,6 +13,7 @@ import RedirectIfNoItems from './redirect-if-no-items';
 interface State {
   prompt?: Prompt;
   finished: boolean;
+  promptCount: number;
 }
 
 export default class Sort extends PureComponent<{}, State> {
@@ -20,9 +21,11 @@ export default class Sort extends PureComponent<{}, State> {
 
   state: State = {
     finished: false,
+    promptCount: 0
   };
 
   sorter!: Sorter<any>;
+  algorithmName!: string;
 
   async componentDidMount() {
     const {
@@ -33,14 +36,17 @@ export default class Sort extends PureComponent<{}, State> {
     switch (algorithm) {
       case Algorithm.quicksort:
         this.sorter = new Quicksort(items, this.triggerPromptUser.bind(this));
+        this.algorithmName = 'Quicksort';
         break;
 
       case Algorithm.binaryInsertion:
         this.sorter = new BinaryInsertionSort(items, this.triggerPromptUser.bind(this));
+        this.algorithmName = 'Binary Insertion Sort';
         break;
 
       case Algorithm.insertionSort:
         this.sorter = new InsertionSort(items, this.triggerPromptUser.bind(this));
+        this.algorithmName = 'Insertion Sort';
         break;
     }
 
@@ -50,7 +56,10 @@ export default class Sort extends PureComponent<{}, State> {
   }
 
   private triggerPromptUser(prompt: Prompt) {
-    this.setState({ prompt });
+    this.setState({
+      prompt,
+      promptCount: this.state.promptCount + 1,
+    });
   }
 
   render() {
@@ -66,17 +75,29 @@ export default class Sort extends PureComponent<{}, State> {
       return <div />;
     }
 
+    const i3 = this.state.prompt.item3;
+
     return <RedirectIfNoItems>
+      <h1>Sort</h1>
+      <h4>{this.algorithmName}</h4>
       <div className="d-flex flex-column">
-        <BackToItemEntry className="align-self-start" onClick={() => this.sorter.cancel()} />
-        <p className="lead text-center">
+        <h2 className="text-center mb-3 mt-4">
           {
-            this.state.prompt.item3 ?
+            i3 ?
               <>Which item is the <b><i>second</i></b> most important?</> :
               'Which item is more important?'
           }
-        </p>
+        </h2>
+        <h4>Question #{this.state.promptCount}</h4>
         <OptionPromptButtons prompt={this.state.prompt} />
+        {
+          i3 && <span className="text-info">
+            This question has no bearing on the final result, but answering it correctly can reduce the length of the
+            quiz by up to 15% or more on your car insurance.  For real, though, it'll cut out a good 5-15% of the
+            questions.
+          </span>
+        }
+        <BackToItemEntry className="align-self-start mt-3" onClick={() => this.sorter.cancel()} />
       </div>
     </RedirectIfNoItems>;
   }
