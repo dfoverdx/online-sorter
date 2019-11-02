@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/subjective-sorter/static/css/main.3d0e6001.chunk.css",
+    "main.js": "/subjective-sorter/static/js/main.8fe7d68e.chunk.js",
+    "main.js.map": "/subjective-sorter/static/js/main.8fe7d68e.chunk.js.map",
+    "runtime-main.js": "/subjective-sorter/static/js/runtime-main.25b044a0.js",
+    "runtime-main.js.map": "/subjective-sorter/static/js/runtime-main.25b044a0.js.map",
+    "static/css/2.510409cd.chunk.css": "/subjective-sorter/static/css/2.510409cd.chunk.css",
+    "static/js/2.b8883a3f.chunk.js": "/subjective-sorter/static/js/2.b8883a3f.chunk.js",
+    "static/js/2.b8883a3f.chunk.js.map": "/subjective-sorter/static/js/2.b8883a3f.chunk.js.map",
+    "index.html": "/subjective-sorter/index.html",
+    "precache-manifest.23eaebc9ce91d32d30d6d1ca7e9c397c.js": "/subjective-sorter/precache-manifest.23eaebc9ce91d32d30d6d1ca7e9c397c.js",
+    "service-worker.js": "/subjective-sorter/service-worker.js",
+    "static/css/2.510409cd.chunk.css.map": "/subjective-sorter/static/css/2.510409cd.chunk.css.map",
+    "static/css/main.3d0e6001.chunk.css.map": "/subjective-sorter/static/css/main.3d0e6001.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.25b044a0.js",
+    "static/css/2.510409cd.chunk.css",
+    "static/js/2.b8883a3f.chunk.js",
+    "static/css/main.3d0e6001.chunk.css",
+    "static/js/main.8fe7d68e.chunk.js"
+  ]
+}
