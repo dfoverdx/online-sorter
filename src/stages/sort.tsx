@@ -2,18 +2,20 @@ import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router';
 import BackToItemEntry from '../components/back-to-item-entry';
 import OptionPromptButtons from '../components/option-prompt-buttons';
+import ProgressBar from '../components/progress-bar';
 import Context, { Algorithm } from '../context';
 import BinaryInsertionSort from '../sorters/binary-insertion-sort';
 import InsertionSort from '../sorters/insertion-sort';
 import Quicksort from '../sorters/quicksort';
-import Sorter from '../sorters/sorter';
-import { Prompt } from '../types';
+import Sorter, { Progress } from '../sorters/sorter';
+import { Item, Prompt } from '../types';
 import RedirectIfNoItems from './redirect-if-no-items';
 
 interface State {
   prompt?: Prompt;
   finished: boolean;
   promptCount: number;
+  progress: Progress<Item | number>;
 }
 
 export default class Sort extends PureComponent<{}, State> {
@@ -21,7 +23,8 @@ export default class Sort extends PureComponent<{}, State> {
 
   state: State = {
     finished: false,
-    promptCount: 0
+    promptCount: 0,
+    progress: 0,
   };
 
   sorter!: Sorter<any>;
@@ -35,17 +38,17 @@ export default class Sort extends PureComponent<{}, State> {
 
     switch (algorithm) {
       case Algorithm.quicksort:
-        this.sorter = new Quicksort(items, this.triggerPromptUser.bind(this));
+        this.sorter = new Quicksort(items, this.triggerPromptUser.bind(this), this.updateProgress.bind(this));
         this.algorithmName = 'Quicksort';
         break;
 
       case Algorithm.binaryInsertion:
-        this.sorter = new BinaryInsertionSort(items, this.triggerPromptUser.bind(this));
+        this.sorter = new BinaryInsertionSort(items, this.triggerPromptUser.bind(this), this.updateProgress.bind(this));
         this.algorithmName = 'Binary Insertion Sort';
         break;
 
       case Algorithm.insertionSort:
-        this.sorter = new InsertionSort(items, this.triggerPromptUser.bind(this));
+        this.sorter = new InsertionSort(items, this.triggerPromptUser.bind(this), this.updateProgress.bind(this));
         this.algorithmName = 'Insertion Sort';
         break;
     }
@@ -53,6 +56,12 @@ export default class Sort extends PureComponent<{}, State> {
     if (this.sorter) {
       this.sorter.run().then(() => this.setState({ finished: true, prompt: undefined }));
     }
+  }
+
+  private updateProgress(progress: Progress<number | Item>): void {
+    this.setState({
+      progress
+    })
   }
 
   private triggerPromptUser(prompt: Prompt) {
@@ -86,12 +95,17 @@ export default class Sort extends PureComponent<{}, State> {
         <h2 className="text-center mb-3 mt-4">
           {
             i3 ?
-              <>Which item is the <b><i>second</i></b> most important?</> :
-              'Which item is more important?'
+              <>Which item is the <b className="text-primary"><i>second</i></b> most important?</> :
+              <>Which item is <span className="text-primary">more important</span>?</>
           }
         </h2>
         <h4>Question #{this.state.promptCount}</h4>
         <OptionPromptButtons prompt={this.state.prompt} />
+        {
+          this.sorter instanceof Quicksort ?
+            <ProgressBar progress={this.state.progress as Progress<Item>} /> :
+            <ProgressBar progress={this.state.progress as number} max={this.context.items.length} />
+        }
         {
           i3 && <span className="text-info">
             This question has no bearing on the final result, but answering it correctly can reduce the length of the
