@@ -8,7 +8,7 @@ export default class Results extends PureComponent {
 
   render() {
     return <RedirectIfNoItems>
-      <h1>Results</h1>
+      <h1 className="display-1">Results</h1>
       <pre>
         {this.context.items.map(i => i.text).join('\n')}
       </pre>

@@ -26,10 +26,8 @@ export default class DataEntry extends PureComponent<{}, State> {
 
   render() {
     return <>
+      <h1 className="display-1">Item Entry</h1>
       <ReactifyMarkdown>{`
-        Item Entry
-        ==========
-
         Enter the items you wish to sort.  Each line represents one item.
 
         If an item is *required*, prepend a \`*\` to it.  If a line represents multiple items (i.e. has a *weight*)
