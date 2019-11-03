@@ -25,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "deploy": "gh-pages -d dist",
+    "vd": "np && npm deploy"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,6 +54,12 @@
     "@types/react-dom": "16.9.2",
     "@types/reactstrap": "^8.0.6",
     "node-sass": "^4.13.0",
+    "np": "*",
     "sass-loader": "^8.0.0"
+  },
+  "np": {
+    "contents": "build",
+    "tests": false,
+    "publish": false
   }
 }
