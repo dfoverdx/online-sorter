@@ -21,8 +21,10 @@
   .inner-container {
     margin-left: -$spacer;
     margin-right: -$spacer;
+    margin-bottom: 40px;
     padding-left: $spacer;
     padding-right: $spacer;
+    min-height: 100vh;
   }
 }
 

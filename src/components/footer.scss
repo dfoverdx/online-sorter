@@ -1,0 +1,12 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+.footer-nav {
+  a {
+    color: #777;
+
+    &:hover {
+      color: #333;
+    }
+  }
+}

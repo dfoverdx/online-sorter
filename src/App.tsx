@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.scss';
+import Footer from './components/footer';
 import Context, { Algorithm, AppContext, StorageKeys } from './context';
 import Stages from './stages';
 import { Item } from './types';
@@ -40,11 +41,12 @@ class App extends React.PureComponent<{}, State> {
   render() {
     return (
       <div className="App container">
-        <div className="inner-container pt-2 pb-3">
+        <div className="inner-container py-2">
           <Context.Provider value={this.state}>
             <Stages />
           </Context.Provider>
         </div>
+        <Footer />
       </div>
     );
   }
