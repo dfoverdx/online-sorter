@@ -18,6 +18,7 @@ export default class DataEntry extends PureComponent<{}, State> {
   state = { hasItems: false };
 
   componentDidMount() {
+    this.context.setAlgorithm(null);
     this.setState({ hasItems: this.context.items.length > 2 });
   }
 
@@ -93,6 +94,9 @@ export default class DataEntry extends PureComponent<{}, State> {
 
               If you have already sorted your list and add new items, don't add them to the start; add them "near"
               where they need to be or to the end of the list.  Then select *Insertion Sort* on the next step.
+
+              If you make a mistake during the sorting quiz, finish the quiz and then do the quiz again with the
+              *Insertion Sort* method.  This quiz will be (relatively) very short.
             `}</ReactifyMarkdown>
           </CardBody>
         </Card>

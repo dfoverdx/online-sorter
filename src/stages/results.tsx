@@ -8,7 +8,7 @@ export default class Results extends PureComponent {
   context!: ContextType<typeof Context>;
 
   render() {
-    return <RedirectIfNoItems>
+    return <RedirectIfNoItems redirectIfNoAlg>
       <h1 className="display-1">Results</h1>
       <ListGroup>
         {this.context.items.map((item, i) =>

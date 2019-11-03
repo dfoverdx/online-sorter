@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
+import { History } from 'history';
 import BackToItemEntry from '../components/back-to-item-entry';
 import OptionPromptButtons from '../components/option-prompt-buttons';
 import ProgressBar from '../components/progress-bar';
@@ -11,27 +12,30 @@ import Sorter, { Progress } from '../sorters/sorter';
 import { Item, Prompt } from '../types';
 import RedirectIfNoItems from './redirect-if-no-items';
 
+interface Props {
+  history?: History;
+}
+
 interface State {
   prompt?: Prompt;
-  finished: boolean;
   promptCount: number;
   progress: Progress<Item | number>;
   lastLeftItem?: Item;
 }
 
-export default class Sort extends PureComponent<{}, State> {
-  constructor(props: {}) {
+class Sort extends PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.triggerPromptUser = this.triggerPromptUser.bind(this);
     this.updateProgress = this.updateProgress.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
+    this.cancel = this.cancel.bind(this);
   }
 
   context!: CT;
 
   state: State = {
-    finished: false,
     promptCount: 0,
     progress: 0,
   };
@@ -64,14 +68,24 @@ export default class Sort extends PureComponent<{}, State> {
     }
 
     if (this.sorter) {
-      this.sorter.run().then(() => this.setState({ finished: true, prompt: undefined }));
+      this.sorter.run().then(() => this.props.history!.replace('/results'));
     }
 
     window.addEventListener('keypress', this.onKeyPress);
+    window.addEventListener('beforeunload', this.cancel);
+    window.addEventListener('popstate', this.cancel);
   }
 
   componentWillUnmount() {
     window.removeEventListener('keypress', this.onKeyPress);
+    window.removeEventListener('beforeunload', this.cancel);
+    window.removeEventListener('popstate', this.cancel);
+  }
+
+  private cancel() {
+    if (this.sorter) {
+      this.sorter.cancel();
+    }
   }
 
   private flash() {
@@ -136,10 +150,6 @@ export default class Sort extends PureComponent<{}, State> {
       return <Redirect to="/algorithm" />;
     }
 
-    if (this.state.finished) {
-      return <Redirect to="/results" />;
-    }
-
     if (!this.state.prompt) {
       return <div />;
     }
@@ -185,7 +195,7 @@ export default class Sort extends PureComponent<{}, State> {
           }
         </p>
         <p><b>Tip:</b> The screen will flash <span className="text-success">green</span> when the left item changes.</p>
-        <BackToItemEntry className="align-self-start mt-2" onClick={() => this.sorter.cancel()} />
+        <BackToItemEntry className="align-self-start mt-2" onClick={this.cancel} />
         <h4 className="mt-3">Progress Information</h4>
         {
           this.context.algorithm === Algorithm.quicksort ?
@@ -209,3 +219,6 @@ export default class Sort extends PureComponent<{}, State> {
 
   static contextType = Context;
 }
+
+// @ts-ignore
+export default withRouter(Sort);

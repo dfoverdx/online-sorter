@@ -158,7 +158,7 @@ export default class ItemInput extends PureComponent<Props, State> {
       <textarea value={this.state.text} onBlur={this.updateItems.bind(this)} ref={this.inputRef}
         onChange={this.onChange.bind(this)} className="form-control"
         style={{ minHeight: '25vh', resize: canResize ? 'vertical' : 'none' }} />
-      <div className="mt-1" style={messageStyle}>{saved ? `Items saved` : error}</div>
+      <div className="pt-1" style={messageStyle}>{saved ? `Items saved` : error}</div>
     </>;
   }
 
