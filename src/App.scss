@@ -2,10 +2,6 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
-body {
-  // background-color: $dark;
-}
-
 .App {
   min-height: 100vh;
 
@@ -20,6 +16,13 @@ body {
 
   h1:first-child {
     margin-top: $spacer / 2;
+  }
+
+  .inner-container {
+    margin-left: -$spacer;
+    margin-right: -$spacer;
+    padding-left: $spacer;
+    padding-right: $spacer;
   }
 }
 
