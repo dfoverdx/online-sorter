@@ -5,6 +5,7 @@ import { Button, Card, CardBody, CardDeck, CardHeader, CardTitle } from 'reactst
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import ItemInput from '../components/item-input';
+import QuestionInput from '../components/question-input';
 import Context from '../context';
 import './item-entry.scss';
 
@@ -24,6 +25,10 @@ export default class DataEntry extends PureComponent<{}, State> {
     this.setState({ hasItems: e.target.value.split('\n').filter(l => l.trim().length).length > 2 });
   }
 
+  onQuestionChange(e: ChangeEvent<HTMLInputElement>) {
+    this.context.setQuestion(e.target.value);
+  }
+
   render() {
     return <>
       <h1 className="display-1">Item Entry</h1>
@@ -37,6 +42,7 @@ export default class DataEntry extends PureComponent<{}, State> {
         Your entries will be saved automatically.
       `}</ReactifyMarkdown>
       <ItemInput onChange={this.onInputChange.bind(this)} />
+      <QuestionInput className="mt-2" onChange={this.onQuestionChange.bind(this)} value={this.context.question} />
       <div className="d-flex flex-row justify-content-end my-2">
         <Link to="/algorithm">
           <Button color="primary" disabled={!this.state.hasItems} className="ml-auto" size="lg">

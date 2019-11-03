@@ -17,6 +17,8 @@ class App extends React.PureComponent<{}, State> {
       updateItems: this.updateItems.bind(this),
       algorithm: null,
       setAlgorithm: this.setAlgorithm.bind(this),
+      question: localStorage.getItem(StorageKeys.question) || '',
+      setQuestion: this.setQuestion.bind(this),
     };
   }
 
@@ -36,6 +38,11 @@ class App extends React.PureComponent<{}, State> {
 
   private setAlgorithm(algorithm: Algorithm | null) {
     this.setState({ algorithm });
+  }
+
+  private setQuestion(question: string) {
+    localStorage.setItem(StorageKeys.question, question);
+    this.setState({ question });
   }
 
   render() {

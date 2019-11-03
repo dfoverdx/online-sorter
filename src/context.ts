@@ -3,6 +3,7 @@ import { Item } from './types';
 
 export enum StorageKeys {
   items = 'items',
+  question = 'question',
 }
 
 export enum Algorithm {
@@ -17,6 +18,9 @@ export interface AppContext {
 
   algorithm: Algorithm | null;
   setAlgorithm(algoirthm: Algorithm | null): void;
+
+  question: string;
+  setQuestion(question: string): void;
 }
 
 const Context = React.createContext<AppContext>({
@@ -24,6 +28,8 @@ const Context = React.createContext<AppContext>({
   updateItems: () => {},
   algorithm: null,
   setAlgorithm: () => {},
+  question: '',
+  setQuestion: () => {},
 });
 
 export default Context;

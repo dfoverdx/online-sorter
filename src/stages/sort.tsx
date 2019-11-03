@@ -154,7 +154,7 @@ export default class Sort extends PureComponent<{}, State> {
           {
             i3 ?
               <>Which item is the <b className="text-primary"><i>second</i></b> most important?</> :
-              <>Which item is <span className="text-primary">more important</span>?</>
+              this.context.question || <>Which item is <span className="text-primary">more important</span>?</>
           }
         </h2>
         <h4>Question #{this.state.promptCount}</h4>

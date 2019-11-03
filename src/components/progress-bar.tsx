@@ -1,4 +1,4 @@
-import React, { FC, PureComponent } from 'react';
+import React, { FC } from 'react';
 import { Progress } from 'reactstrap';
 import { Item } from '../types';
 
