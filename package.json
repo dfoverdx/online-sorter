@@ -53,6 +53,7 @@
     "@types/react": "^16.9.9",
     "@types/react-dom": "16.9.2",
     "@types/reactstrap": "^8.0.6",
+    "esm": "^3.2.25",
     "gh-pages": "^2.1.1",
     "node-sass": "^4.13.0",
     "np": "5.1.2",
@@ -63,5 +64,8 @@
     "tests": false,
     "publish": false,
     "yolo": true
+  },
+  "optionalDependencies": {
+    "clipboardy": "^2.1.0"
   }
 }
