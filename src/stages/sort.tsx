@@ -16,6 +16,7 @@ interface State {
   finished: boolean;
   promptCount: number;
   progress: Progress<Item | number>;
+  lastLeftItem?: Item;
 }
 
 export default class Sort extends PureComponent<{}, State> {
@@ -37,6 +38,7 @@ export default class Sort extends PureComponent<{}, State> {
 
   sorter!: Sorter<any>;
   algorithmName!: string;
+  readonly bodyElement = document.getElementsByTagName('body')[0];
 
   async componentDidMount() {
     const {
@@ -72,6 +74,11 @@ export default class Sort extends PureComponent<{}, State> {
     window.removeEventListener('keypress', this.onKeyPress);
   }
 
+  private flash() {
+    this.bodyElement.classList.add('flash');
+    setTimeout(() => this.bodyElement.classList.remove('flash'), 750);
+  }
+
   private updateProgress(progress: Progress<number | Item>): void {
     if (Array.isArray(progress)) {
       this.setState({ progress: progress.slice() });
@@ -81,7 +88,12 @@ export default class Sort extends PureComponent<{}, State> {
   }
 
   private triggerPromptUser(prompt: Prompt) {
+    if (this.state.lastLeftItem && this.state.lastLeftItem !== prompt.item1) {
+      this.flash();
+    }
+
     this.setState({
+      lastLeftItem: prompt.item3 ? undefined : prompt.item1,
       prompt,
       promptCount: this.state.promptCount + 1,
     });
@@ -159,7 +171,7 @@ export default class Sort extends PureComponent<{}, State> {
             questions.
           </span>
         }
-        <span className="mt-2 d-none d-sm-inline">
+        <p className="mt-2 mb-1 d-none d-sm-inline">
           <b>Tip:</b>{' '}
           {
             i3 ?
@@ -171,8 +183,9 @@ export default class Sort extends PureComponent<{}, State> {
                 You can press <kbd>a</kbd> to select the left item and <kbd>l</kbd> to select the right item.
               </>
           }
-        </span>
-        <BackToItemEntry className="align-self-start mt-3" onClick={() => this.sorter.cancel()} />
+        </p>
+        <p><b>Tip:</b> The screen will flash <span className="text-success">green</span> when the left item changes.</p>
+        <BackToItemEntry className="align-self-start mt-2" onClick={() => this.sorter.cancel()} />
       </div>
     </RedirectIfNoItems>;
   }

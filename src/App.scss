@@ -51,3 +51,18 @@ kbd {
   box-shadow: 0 1px 0 rgba(12, 13, 14, 0.2), 0 0 0 2px white inset;
   white-space: nowrap;
 }
+
+.flash {
+  animation-name: flash;
+  animation-duration: 0.75s;
+}
+
+@keyframes flash {
+  from {
+    background-color: $success;
+  }
+
+  to {
+    background-color: white;
+  }
+}
