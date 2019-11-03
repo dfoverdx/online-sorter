@@ -34,7 +34,7 @@ export default class Quicksort extends Sorter<Item> {
   private async partition(low: number, high: number): Promise<number> {
     if (high - low > 5) {
       // find middle pivot
-      const pivots = this.items.slice(high - 3).filter(i => !i.required);
+      const pivots = this.items.slice(high - 2).filter(i => !i.required);
 
       if (pivots.length > 1) {
         const [promise, prompt] = Sorter.createPrompt(...pivots as [Item, Item, Item?]);

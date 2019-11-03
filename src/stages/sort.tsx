@@ -186,6 +186,23 @@ export default class Sort extends PureComponent<{}, State> {
         </p>
         <p><b>Tip:</b> The screen will flash <span className="text-success">green</span> when the left item changes.</p>
         <BackToItemEntry className="align-self-start mt-2" onClick={() => this.sorter.cancel()} />
+        <h4 className="mt-3">Progress Information</h4>
+        {
+          this.context.algorithm === Algorithm.quicksort ?
+            <>
+              The Quicksort progress bar will fill up slowly at first and then much quicker toward the end.  The first
+              progress bar increase will be after {this.context.items.length - 1} questions.  About midway through and
+              right at the end, the progress bar will fill several segments at a time.  This is just the nature of
+              Quicksort.  It may not feel like it, but you are making progress.
+            </> :
+            <>
+              The {this.algorithmName} progress bar will fill up quickly at first and slower toward the end.  The way
+              the algorithm works, it builds an increasingly long sorted list at the front of the list, progressively
+              adding items into the correct place.  This is why the progress bar starts at{' '}
+              {Math.round(100 / this.context.items.length)}%--the first item is a sorted list of 1 length.  As the
+              sorted portion of the list increases, it requires more questions to figure out where later items belong.
+            </>
+        }
       </div>
     </RedirectIfNoItems>;
   }
