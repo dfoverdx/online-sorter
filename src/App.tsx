@@ -19,6 +19,8 @@ class App extends React.PureComponent<{}, State> {
       setAlgorithm: this.setAlgorithm.bind(this),
       question: localStorage.getItem(StorageKeys.question) || '',
       setQuestion: this.setQuestion.bind(this),
+      maxItems: this.getMaxItems(),
+      setMaxItems: this.setMaxItems.bind(this),
     };
   }
 
@@ -43,6 +45,20 @@ class App extends React.PureComponent<{}, State> {
   private setQuestion(question: string) {
     localStorage.setItem(StorageKeys.question, question);
     this.setState({ question });
+  }
+
+  private setMaxItems(maxItems: number | false) {
+    localStorage.setItem(StorageKeys.maxItems, maxItems.toString());
+    this.setState({ maxItems });
+  }
+
+  private getMaxItems(): number | false {
+    const val = localStorage.getItem(StorageKeys.maxItems);
+    if (!val || val === 'false') {
+      return false;
+    }
+
+    return parseInt(val);
   }
 
   render() {

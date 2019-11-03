@@ -6,6 +6,7 @@ const itemRegex = /^\s*(\*)?\s*(.+?)\s*(?:\|\s*(\d+))?\s*$/;
 
 interface Props {
   onChange?: React.TextareaHTMLAttributes<HTMLTextAreaElement>['onChange'];
+  onSaved?: () => void;
 }
 
 interface State {
@@ -77,6 +78,10 @@ export default class ItemInput extends PureComponent<Props, State> {
     const items = this.validate();
     if (items) {
       this.context.updateItems(items);
+      if (this.props.onSaved) {
+        this.props.onSaved();
+      }
+
       this.setState({ saved: true, error: null });
     }
   }

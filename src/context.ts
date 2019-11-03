@@ -4,6 +4,7 @@ import { Item } from './types';
 export enum StorageKeys {
   items = 'items',
   question = 'question',
+  maxItems = 'maxItems',
 }
 
 export enum Algorithm {
@@ -21,6 +22,9 @@ export interface AppContext {
 
   question: string;
   setQuestion(question: string): void;
+
+  maxItems: number | false;
+  setMaxItems(maxItems: number | false): void;
 }
 
 const Context = React.createContext<AppContext>({
@@ -30,6 +34,8 @@ const Context = React.createContext<AppContext>({
   setAlgorithm: () => {},
   question: '',
   setQuestion: () => {},
+  maxItems: false,
+  setMaxItems: () => {},
 });
 
 export default Context;

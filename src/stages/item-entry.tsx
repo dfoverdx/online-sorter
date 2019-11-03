@@ -5,29 +5,62 @@ import { Button, Card, CardBody, CardDeck, CardHeader, CardTitle } from 'reactst
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import ItemInput from '../components/item-input';
+import MaxItems from '../components/max-items';
 import QuestionInput from '../components/question-input';
 import Context from '../context';
 import './item-entry.scss';
 
 interface State {
   hasItems: boolean;
+  maxItems: number;
 }
 
 export default class DataEntry extends PureComponent<{}, State> {
   context!: CT;
-  state = { hasItems: false };
+  state = {
+    hasItems: false,
+    maxItems: 0,
+  };
 
   componentDidMount() {
     this.context.setAlgorithm(null);
-    this.setState({ hasItems: this.context.items.length > 2 });
+    this.setState({
+      hasItems: this.context.items.length > 2,
+      maxItems: this.getMaxItems(),
+    });
   }
 
   onInputChange(e: ChangeEvent<HTMLTextAreaElement>) {
-    this.setState({ hasItems: e.target.value.split('\n').filter(l => l.trim().length).length > 2 });
+    this.setState({
+      hasItems: e.target.value.split('\n').filter(l => l.trim().length).length > 2,
+    });
+  }
+
+  onInputSaved() {
+    // for some reason when blur calls ItemInput.updateItems(), the context doesn't update immediately
+    setImmediate(() => {
+      const maxItems = this.getMaxItems(),
+        shouldChangeVal =
+          this.context.maxItems !== false && this.state.maxItems <= this.context.maxItems ||
+          maxItems < this.state.maxItems;
+
+      if (shouldChangeVal) {
+        this.setState({ maxItems });
+        this.context.setMaxItems(maxItems);
+      }
+    });
   }
 
   onQuestionChange(e: ChangeEvent<HTMLInputElement>) {
     this.context.setQuestion(e.target.value);
+  }
+
+  onMaxItemsChange(val: number | false) {
+    this.context.setMaxItems(val);
+  }
+
+  private getMaxItems(): number {
+    return this.context.items.reduce((prev, item) => prev + (item.weight || 1), 0);
   }
 
   render() {
@@ -42,10 +75,12 @@ export default class DataEntry extends PureComponent<{}, State> {
 
         Your entries will be saved automatically.
       `}</ReactifyMarkdown>
-      <ItemInput onChange={this.onInputChange.bind(this)} />
+      <ItemInput onChange={this.onInputChange.bind(this)} onSaved={this.onInputSaved.bind(this)} />
       <QuestionInput className="mt-4" onChange={this.onQuestionChange.bind(this)} value={this.context.question} />
-      <div className="d-flex flex-row justify-content-end my-2">
-        <Link to="/algorithm">
+      <div className="d-flex flex-row justify-content-between my-2">
+        <MaxItems value={this.context.maxItems} onChange={this.onMaxItemsChange.bind(this)}
+          maxItems={this.state.maxItems} />
+        <Link to="/algorithm" className="my-auto">
           <Button color="primary" disabled={!this.state.hasItems} className="ml-auto" size="lg">
             Sort Entries <FontAwesomeIcon icon={faAngleRight} size="lg" />
           </Button>
