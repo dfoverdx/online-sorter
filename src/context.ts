@@ -23,8 +23,8 @@ export interface AppContext {
   question: string;
   setQuestion(question: string): void;
 
-  maxItems: number | false;
-  setMaxItems(maxItems: number | false): void;
+  maxWeight: number | false;
+  setMaxWeight(maxWeight: number | false): void;
 }
 
 const Context = React.createContext<AppContext>({
@@ -34,8 +34,8 @@ const Context = React.createContext<AppContext>({
   setAlgorithm: () => {},
   question: '',
   setQuestion: () => {},
-  maxItems: false,
-  setMaxItems: () => {},
+  maxWeight: false,
+  setMaxWeight: () => {},
 });
 
 export default Context;

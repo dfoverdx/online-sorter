@@ -26,7 +26,7 @@ export default class DataEntry extends PureComponent<{}, State> {
     this.context.setAlgorithm(null);
     this.setState({
       hasItems: this.context.items.length > 2,
-      maxItems: this.getMaxItems(),
+      maxItems: this.getMaxWeight(),
     });
   }
 
@@ -39,14 +39,14 @@ export default class DataEntry extends PureComponent<{}, State> {
   onInputSaved() {
     // for some reason when blur calls ItemInput.updateItems(), the context doesn't update immediately
     setImmediate(() => {
-      const maxItems = this.getMaxItems(),
+      const maxWeight = this.getMaxWeight(),
         shouldChangeVal =
-          this.context.maxItems !== false && this.state.maxItems <= this.context.maxItems ||
-          maxItems < this.state.maxItems;
+          this.context.maxWeight !== false && this.state.maxItems <= this.context.maxWeight ||
+          maxWeight < this.state.maxItems;
 
       if (shouldChangeVal) {
-        this.setState({ maxItems });
-        this.context.setMaxItems(maxItems);
+        this.setState({ maxItems: maxWeight });
+        this.context.setMaxWeight(maxWeight);
       }
     });
   }
@@ -56,10 +56,10 @@ export default class DataEntry extends PureComponent<{}, State> {
   }
 
   onMaxItemsChange(val: number | false) {
-    this.context.setMaxItems(val);
+    this.context.setMaxWeight(val);
   }
 
-  private getMaxItems(): number {
+  private getMaxWeight(): number {
     return this.context.items.reduce((prev, item) => prev + (item.weight || 1), 0);
   }
 
@@ -78,7 +78,7 @@ export default class DataEntry extends PureComponent<{}, State> {
       <ItemInput onChange={this.onInputChange.bind(this)} onSaved={this.onInputSaved.bind(this)} />
       <QuestionInput className="mt-4" onChange={this.onQuestionChange.bind(this)} value={this.context.question} />
       <div className="d-flex flex-row justify-content-between my-2">
-        <MaxItems value={this.context.maxItems} onChange={this.onMaxItemsChange.bind(this)}
+        <MaxItems value={this.context.maxWeight} onChange={this.onMaxItemsChange.bind(this)}
           maxItems={this.state.maxItems} />
         <Link to="/algorithm" className="my-auto">
           <Button color="primary" disabled={!this.state.hasItems} className="ml-auto" size="lg">
