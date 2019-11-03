@@ -1,6 +1,6 @@
 {
   "name": "online-sorter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://dfdx.us/subjective-sorter",
   "private": true,
   "dependencies": {
