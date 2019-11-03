@@ -75,8 +75,8 @@ export default class Sort extends PureComponent<{}, State> {
   }
 
   private flash() {
-    this.bodyElement.classList.add('flash');
-    setTimeout(() => this.bodyElement.classList.remove('flash'), 750);
+    this.bodyElement.classList.remove('flash');
+    setImmediate(() => this.bodyElement.classList.add('flash'));
   }
 
   private updateProgress(progress: Progress<number | Item>): void {
