@@ -42,7 +42,7 @@ export default class DataEntry extends PureComponent<{}, State> {
         Your entries will be saved automatically.
       `}</ReactifyMarkdown>
       <ItemInput onChange={this.onInputChange.bind(this)} />
-      <QuestionInput className="mt-2" onChange={this.onQuestionChange.bind(this)} value={this.context.question} />
+      <QuestionInput className="mt-4" onChange={this.onQuestionChange.bind(this)} value={this.context.question} />
       <div className="d-flex flex-row justify-content-end my-2">
         <Link to="/algorithm">
           <Button color="primary" disabled={!this.state.hasItems} className="ml-auto" size="lg">
