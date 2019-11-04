@@ -2,8 +2,8 @@ import { Item, itemsEqual } from '../types';
 import Sorter, { TriggerPrompt, UpdateProgress } from './sorter';
 
 export default class BinaryInsertionSort extends Sorter<number> {
-  constructor(items: Item[], triggerPrompt: TriggerPrompt, updateProgress?: UpdateProgress<number>) {
-    super(items, triggerPrompt, 1, updateProgress);
+  constructor(items: Item[], triggerPrompt: TriggerPrompt, updateProgress: UpdateProgress<number>) {
+    super(items, triggerPrompt, 1, updateProgress, false);
   }
 
   private curItem: Item | null = null;

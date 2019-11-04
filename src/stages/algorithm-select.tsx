@@ -61,7 +61,7 @@ export default class AlgorithmSelect extends PureComponent {
           name="Quicksort"
           pros={[
             'Fewer context switches--questions are faster to answer',
-            // 'Can stop early if you specify a maximum number of items',
+            'Can stop early if you specify a maximum number of items',
           ]}
           cons={[
             'Slightly more questions than Binary Insertion Sort',
@@ -79,7 +79,7 @@ export default class AlgorithmSelect extends PureComponent {
           ]}
           cons={[
             'More context switches--questions are a little slower to answer',
-            // <><b>Cannot</b> stop early if you specify a maximum number of items</>,
+            <><b>Cannot</b> stop early if you specify a maximum number of items</>,
           ]}
          />
         <div className="w-100 d-xl-none" />
@@ -93,7 +93,7 @@ export default class AlgorithmSelect extends PureComponent {
           pros={[
             <><b>Fewest questions by far</b> for mostly-ordered lists</>,
             'Fewer context switches than Binary Insertion Sort--questions are quicker to answer',
-            // 'Can stop early if you specify a maximum number of items',
+            // 'Has fewer questions if you specify a maximum number of items',
           ]}
           cons={[
             'More context switches than Quicksort--questions are slower to answer',
@@ -101,6 +101,7 @@ export default class AlgorithmSelect extends PureComponent {
               <b>Significantly</b> more questions than Binary Insertion Sort or Quicksort if list is not already mostly
               ordered
             </>,
+            <><b>Does not</b> currently reduce the number of questions if you specify a maximum number of items</>
           ]}
          />
         <div className="w-50 d-none d-lg-flex d-xl-none" />

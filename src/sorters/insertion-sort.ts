@@ -2,12 +2,17 @@ import { Item, itemsEqual } from '../types';
 import Sorter, { TriggerPrompt, UpdateProgress } from './sorter';
 
 export default class InsertionSort extends Sorter<number> {
-  constructor(items: Item[], triggerPrompt: TriggerPrompt, updateProgress?: UpdateProgress<number>) {
-    super(items, triggerPrompt, 1, updateProgress);
+  constructor(
+    items: Item[],
+    triggerPrompt: TriggerPrompt,
+    updateProgress: UpdateProgress<number>)
+  {
+    super(items, triggerPrompt, 1, updateProgress, false);
   }
 
   async run() {
     const items = this.items;
+    // let sortedWeight = items[0].weight || 1;
     for (let i = 1; i < items.length; i++) {
       if (this.updateProgress) {
         this.updateProgress(this.progress);

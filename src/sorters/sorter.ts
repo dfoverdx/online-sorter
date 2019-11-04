@@ -9,7 +9,8 @@ export default abstract class Sorter<TProgress extends Item | number> {
     public items: Item[],
     protected triggerPrompt: TriggerPrompt,
     protected progress: Progress<TProgress>,
-    protected updateProgress?: UpdateProgress<TProgress>)
+    protected updateProgress: UpdateProgress<TProgress>,
+    protected maxWeight: number | false)
   {
   }
 

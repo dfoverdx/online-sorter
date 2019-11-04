@@ -52,7 +52,7 @@ class Sort extends PureComponent<Props, State> {
 
     switch (algorithm) {
       case Algorithm.quicksort:
-        this.sorter = new Quicksort(items, this.triggerPromptUser, this.updateProgress);
+        this.sorter = new Quicksort(items, this.triggerPromptUser, this.updateProgress, this.context.maxWeight);
         this.algorithmName = 'Quicksort';
         break;
 

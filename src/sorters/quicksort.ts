@@ -2,8 +2,13 @@ import { Item, itemsEqual } from '../types';
 import Sorter, { TriggerPrompt, UpdateProgress } from './sorter';
 
 export default class Quicksort extends Sorter<Item> {
-  constructor(items: Item[], triggerPrompt: TriggerPrompt, updateProgress?: UpdateProgress<Item>) {
-    super(items, triggerPrompt, new Array(items.length).fill(false), updateProgress);
+  constructor(
+    items: Item[],
+    triggerPrompt: TriggerPrompt,
+    updateProgress: UpdateProgress<Item>,
+    maxWeight: number | false)
+  {
+    super(items, triggerPrompt, new Array(items.length).fill(false), updateProgress, maxWeight);
   }
 
   async run() {
@@ -27,7 +32,10 @@ export default class Quicksort extends Sorter<Item> {
       }
 
       await this.qs(low, pIdx - 1);
-      await this.qs(pIdx + 1, high);
+
+      if (this.getSumWeight(pIdx) < this.maxWeight) {
+        await this.qs(pIdx + 1, high);
+      }
     }
   }
 
@@ -79,5 +87,10 @@ export default class Quicksort extends Sorter<Item> {
 
     this.swap(i, high);
     return i;
+  }
+
+  private getSumWeight(maxIdx: number) {
+    let items = this.items.slice(0, maxIdx);
+    return items.reduce((prev, item) => prev + (item.weight || 1), 0);
   }
 }
