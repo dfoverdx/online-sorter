@@ -12,9 +12,7 @@ export default class BinaryInsertionSort extends Sorter<number> {
   async run() {
     const items = this.items;
     for (let i = 1; i < items.length; i++) {
-      if (this.updateProgress) {
-        this.updateProgress(this.progress);
-      }
+      this.updateProgress(this.progress);
 
       this.curIdx = i;
       const item = this.curItem = items.splice(i, 1)[0],

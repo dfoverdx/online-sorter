@@ -27,15 +27,16 @@ export default class Quicksort extends Sorter<Item> {
     if (low < high) {
       const pIdx = await this.partition(low, high);
       this.progress[pIdx] = this.items[pIdx];
-      if (this.updateProgress) {
-        this.updateProgress(this.progress);
-      }
+      this.updateProgress(this.progress);
 
       await this.qs(low, pIdx - 1);
 
       if (this.getSumWeight(pIdx) < this.maxWeight) {
         await this.qs(pIdx + 1, high);
       }
+    } else if (low === high) {
+      this.progress[low] = this.items[low];
+      this.updateProgress(this.progress);
     }
   }
 

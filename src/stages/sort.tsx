@@ -201,7 +201,7 @@ class Sort extends PureComponent<Props, State> {
           this.context.algorithm === Algorithm.quicksort ?
             <>
               The Quicksort progress bar will fill up slowly at first and then much quicker toward the end.  The first
-              progress bar increase will be after {this.context.items.length - 1} questions.  About midway through and
+              progress bar increase will be after {this.context.items.length} questions.  About midway through and
               right at the end, the progress bar will fill several segments at a time.  This is just the nature of
               Quicksort.  It may not feel like it, but you are making progress.
             </> :

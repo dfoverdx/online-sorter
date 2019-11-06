@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Progress } from 'reactstrap';
+import { Progress, UncontrolledTooltip } from 'reactstrap';
+import classnames from 'classnames';
 import { Item } from '../types';
 
 interface ItemProps {
@@ -22,12 +23,26 @@ const ProgressBar: FC<ItemProps | NumberProps> = (props) => {
   if (isNumberProps(props)) {
     value = props.progress;
     max = props.max;
+    return <Progress value={value} striped max={max} />;
   } else {
-    value = props.progress.filter(p => p !== false).length;
-    max = props.progress.length;
-  }
+    value = 100 / props.progress.length;
+    return <Progress multi>
+      {props.progress.map((v, i) => {
+        const cl = classnames(!!i && 'border-left');
 
-  return <Progress value={value} striped max={max} />;
+        return !v ?
+          <Progress key={i} bar color="light" value={value} className={cl} /> :
+          <>
+            <Progress key={i} bar striped value={value} className={cl}>
+              <div id={`progress-${i}`} className="d-block h-100" />
+            </Progress>
+            <UncontrolledTooltip placement="top" target={`progress-${i}`}>
+              {v.text}
+            </UncontrolledTooltip>
+          </>
+        })}
+    </Progress>;
+  }
 }
 
 export default ProgressBar;

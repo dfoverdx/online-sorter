@@ -14,9 +14,7 @@ export default class InsertionSort extends Sorter<number> {
     const items = this.items;
     // let sortedWeight = items[0].weight || 1;
     for (let i = 1; i < items.length; i++) {
-      if (this.updateProgress) {
-        this.updateProgress(this.progress);
-      }
+      this.updateProgress(this.progress);
 
       const item = items[i];
 
