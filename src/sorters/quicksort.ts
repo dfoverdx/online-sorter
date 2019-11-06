@@ -31,7 +31,7 @@ export default class Quicksort extends Sorter<Item> {
 
       await this.qs(low, pIdx - 1);
 
-      if (this.getSumWeight(pIdx) < this.maxWeight) {
+      if (this.maxWeight === false || this.getSumWeight(pIdx) < this.maxWeight) {
         await this.qs(pIdx + 1, high);
       }
     } else if (low === high) {

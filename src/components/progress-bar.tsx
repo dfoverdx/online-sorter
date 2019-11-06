@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment as F } from 'react';
 import { Progress, UncontrolledTooltip } from 'reactstrap';
 import classnames from 'classnames';
 import { Item } from '../types';
@@ -32,14 +32,14 @@ const ProgressBar: FC<ItemProps | NumberProps> = (props) => {
 
         return !v ?
           <Progress key={i} bar color="light" value={value} className={cl} /> :
-          <>
-            <Progress key={i} bar striped value={value} className={cl}>
+          <F key={i}>
+            <Progress bar striped value={value} className={cl}>
               <div id={`progress-${i}`} className="d-block h-100" />
             </Progress>
             <UncontrolledTooltip placement="top" target={`progress-${i}`}>
               {v.text}
             </UncontrolledTooltip>
-          </>
+          </F>
         })}
     </Progress>;
   }
