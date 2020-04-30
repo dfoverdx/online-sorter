@@ -11,7 +11,7 @@
     "@kennethormandy/react-fittext": "^0.6.0",
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "markdown-it": "^10.0.0",
     "react": "^16.10.2",
     "react-create-class": "^1.0.0",
